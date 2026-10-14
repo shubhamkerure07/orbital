@@ -4,47 +4,123 @@
 
 @layer base {
   body {
-    @apply bg-space-950 text-slate-100 font-sans selection:bg-gold-500 selection:text-space-950;
+    @apply bg-space-950 text-slate-100 font-sans selection:bg-holo-cyan selection:text-space-950;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar */
+/* Custom Mission Control scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090C;
+  background: #020205;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1C2130;
-  border-radius: 4px;
+  background: rgba(0, 242, 255, 0.2);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #282F44;
+  background: #00f2ff;
+  box-shadow: 0 0 10px #00f2ff;
 }
 
-/* Star twinkling subtle background */
-.space-stars-bg {
+/* Cosmic Dust Drifting Particle Layer */
+.cosmic-dust {
   background-image: 
-    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 230px 190px, rgba(229,169,60,0.8), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 310px 80px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 420px 240px, #ffffff, rgba(0,0,0,0));
+    radial-gradient(1px 1px at 10% 20%, #ffffff, transparent),
+    radial-gradient(1px 1px at 30% 50%, rgba(0, 242, 255, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 70% 30%, #ffffff, transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(247, 204, 127, 0.7), transparent),
+    radial-gradient(1px 1px at 85% 60%, #ffffff, transparent),
+    radial-gradient(1.5px 1.5px at 15% 90%, rgba(0, 242, 255, 0.6), transparent);
   background-repeat: repeat;
-  background-size: 500px 500px;
+  background-size: 600px 600px;
 }
 
-.radar-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+/* Tactical HUD Corner Brackets */
+.hud-corner-container {
+  position: relative;
+}
+
+.hud-corner-container::before,
+.hud-corner-container::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.hud-corner-tl {
+  border-top: 1.5px solid rgba(0, 242, 255, 0.6);
+  border-left: 1.5px solid rgba(0, 242, 255, 0.6);
+}
+
+.hud-corner-tr {
+  border-top: 1.5px solid rgba(0, 242, 255, 0.6);
+  border-right: 1.5px solid rgba(0, 242, 255, 0.6);
+}
+
+.hud-corner-bl {
+  border-bottom: 1.5px solid rgba(0, 242, 255, 0.6);
+  border-left: 1.5px solid rgba(0, 242, 255, 0.6);
+}
+
+.hud-corner-br {
+  border-bottom: 1.5px solid rgba(0, 242, 255, 0.6);
+  border-right: 1.5px solid rgba(0, 242, 255, 0.6);
+}
+
+/* Mission Control HUD Card */
+.hud-card {
+  position: relative;
+  background: rgba(6, 8, 16, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-card:hover {
+  border-color: rgba(0, 242, 255, 0.4);
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.12);
+}
+
+/* Glow Utilities */
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.8), 0 0 20px rgba(0, 242, 255, 0.4);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 8px rgba(247, 204, 127, 0.8), 0 0 20px rgba(247, 204, 127, 0.4);
+}
+
+.box-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.3), inset 0 0 20px rgba(0, 242, 255, 0.1);
+}
+
+/* Animated Border Flow */
+@keyframes border-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animated-border {
+  position: relative;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: border-flow 4s ease infinite;
+}
+
+/* NASA Mission Control Gradient Header */
+.nasa-gradient-text {
+  background: linear-gradient(135deg, #00f2ff 0%, #0062ff 50%, #fc3d21 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

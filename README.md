@@ -1,83 +1,75 @@
-# ORBITAL — Explore Beyond What You Know
+# 🪐 ORBITAL — NASA Mission Control & Deep Space Observatory
 
-A complete, premium, interactive space exploration and astrophysics platform. Combines a modern scientific observatory console, an interactive 3D digital planetarium, and an educational orbital mechanics laboratory.
+[![Vercel Deployment](https://img.shields.io/badge/Live_Deployment-orbital--nu--gules.vercel.app-00f2ff?style=for-the-badge&logo=vercel)](https://orbital-nu-gules.vercel.app/)
+[![React 18](https://img.shields.io/badge/React-18.3.1-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-R3F-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+
+> **"THE UNIVERSE IS YOURS TO EXPLORE."**  
+> Explore beyond what you know with a combination of an advanced spacecraft navigation console, a modern scientific observatory, and a real-time digital planetarium.
+
+🌐 **Live Application:** [https://orbital-nu-gules.vercel.app/](https://orbital-nu-gules.vercel.app/)  
+📂 **GitHub Repository:** [https://github.com/shubhamkerure07/orbital](https://github.com/shubhamkerure07/orbital)
 
 ---
 
-## 🛰️ Overview & Core Objectives
+## 🛰️ Visual Identity & Design System
 
-**Project Name:** ORBITAL  
-**Tagline:** *Explore Beyond What You Know.*  
-**Primary Goal:** Make space exploration interactive, educational, scientifically responsible, and visually unforgettable.
-
-ORBITAL delivers an authentic space exploration experience using verified astronomical ephemerides, flight manuals, and astrophysical observations—without fabricated telemetry or generic placeholder concepts.
+Inspired by cutting-edge aerospace mission control consoles (NASA Goddard & JPL), cybernetic HUD telemetry interfaces, and digital observatories:
+* **Typography:** Geometric modern display font (**Outfit**), body legibility (**Inter**), and high-precision telemetry monospace (**JetBrains Mono**).
+* **Color Palette:** Deep Obsidian Space (`#020205`, `#060810`), Holo Cyan (`#00f2ff`), NASA Deep Blue (`#0b3d91`), Aerospace Coral/Red (`#fc3d21`), and Stellar Warm Gold (`#f7cc7f`).
+* **Tactical HUD Accents:** Corner bracket framing, telemetry ribbons, glowing status indicators, and subtle cosmic dust particles.
 
 ---
 
-## 🌟 Core Features & Modules
+## 🌟 Modules & Core Features
 
-### 1. Cinematic Observatory Homepage (`/`)
-* **Atmospheric Horizon Hero**: Deep space lighting, typography, and responsive viewport sizing.
-* **Featured Planet Spotlight**: Comprehensive planetary highlights with authentic measurements.
-* **Solar System Preview**: Quick-access interactive preview cards for celestial bodies.
-* **Mission Spotlight**: Verified historical and active space missions with status pills.
-* **Cosmic Frontier**: Exoplanet profiles (TRAPPIST-1e) and deep-field cosmological discoveries.
-* **Orbital Lab Preview**: Mini interactive preview of two-body gravitational mechanics.
+### 1. 🌍 Planetary Exploration & 3D Planetarium (`/explore`)
+* **3D Solar System (React Three Fiber & Three.js)**: Real-time interactive model featuring the Sun, Mercury, Venus, Earth (with orbiting Moon), Mars, Jupiter, Saturn (with rings), Uranus ($97.8^\circ$ axial tilt), and Neptune.
+* **Camera Navigation**: Smooth camera lerp focusing onto selected worlds, orbit trails, and lighting.
+* **Planetary Controls**: Play/pause simulation, speed multiplier (0.5×, 1×, 3×), target focus selector, reset camera, label toggling, and zoom controls.
+* **Resilient 2D WebGL Fallback**: Interactive 2D HTML5 canvas mode automatically loaded if WebGL is unsupported.
+* **Planetary Differential Analyzer**: Side-by-side comparative analysis between any two planetary bodies.
 
-### 2. Interactive 3D Solar System (`/explore`)
-* **Full Three.js & React Three Fiber (R3F) Canvas**: High-performance WebGL solar system with Sun, Mercury, Venus, Earth (with Moon), Mars, Jupiter, Saturn (with dynamic rings), Uranus, and Neptune.
-* **Planetary Materials & Axial Tilts**: Authentic inclination angles (e.g. Uranus sideways 97.8° tilt, Venus retrograde rotation).
-* **Smooth Camera Transitions**: Automatic smooth lerping toward focused targets upon selection.
-* **Interactive Controls**: Play, pause, speed multipliers (0.5×, 1×, 3×), reset camera, label toggling, target focus dropdown, zoom in/out.
-* **Mobile-Optimized Bottom Sheet**: Compact slide-in details without obstructing 3D viewport.
-* **Resilient 2D WebGL Fallback**: Interactive 2D HTML5 canvas mode if WebGL is unavailable or disabled.
-* **Planetary Differential Analyzer**: Side-by-side comparison tool comparing diameter, gravity, orbital year, day length, temperature, and mass between any two celestial bodies.
-
-### 3. Planetary Dossiers (`/explore/:planetId`)
-* Typed scientific metrics: Equatorial diameter, mean distance from Sun (AU and millions of km), orbital period, orbital velocity, sidereal day length, surface gravity ($g$ and $\text{m/s}^2$), mean and extreme temperatures.
+### 2. 📋 Comprehensive Planetary Dossiers (`/explore/:planetId`)
+* Authentic physical parameters: Equatorial diameter, distance from Sun (AU/km), orbital period, orbital velocity, sidereal rotation & day length, surface gravity ($g$ and $\text{m/s}^2$), and thermal extremes.
 * Atmospheric composition percentage graphs.
-* Key geological landforms and active research questions.
-* Previous/Next planet navigation and related exploration missions.
+* Key geological landforms and related historical/active space exploration missions.
 
-### 4. Space Missions Explorer (`/missions`)
-* Verified missions including **James Webb Space Telescope (JWST)**, **Mars 2020 Perseverance & Ingenuity**, **Voyager 1 & 2**, **Apollo 11**, **Curiosity**, **Cassini-Huygens**, **Artemis I**, **Europa Clipper**, and **Chandrayaan-3**.
-* Multi-parameter filtering: Filter by status (active, completed, planned, en-route), category (rover, orbiter, telescope, crewed, probe), and search by keywords.
-* Sorting by launch date (newest/oldest).
-* In-depth mission detail modal: Verified objectives, scientific breakthroughs, and chronological mission milestones.
+### 3. 🚀 Flight Operations & Missions Catalog (`/missions`)
+* Verified missions including **James Webb Space Telescope (JWST)**, **Mars 2020 Perseverance & Ingenuity**, **Voyager 1 & 2**, **Apollo 11**, **MSL Curiosity**, **Cassini-Huygens**, **Artemis I**, **Europa Clipper**, and **Chandrayaan-3**.
+* Interactive search and multi-parameter filtering (by status, category, and destination).
+* Mission detail modal featuring verified achievements, milestones, and official agency citations.
 
-### 5. Rocket Explorer & Staging Simulator (`/rockets`)
+### 4. 🛰️ Rocket Explorer & Staging Simulator (`/rockets`)
 * Orbital launch vehicles: **Falcon 9 Block 5**, **Saturn V**, **Space Launch System (SLS Block 1)**, **Starship & Super Heavy**, and **Ariane 6**.
 * **Interactive Multistage Schematic**: Clickable SVG rocket stages detailing engine counts, thrust outputs (kN), propellant combinations, burn times, and staging purposes.
-* **Flight Profile Simulator**: Step-by-step flight timeline (Liftoff $\to$ Max-Q $\to$ MECO $\to$ Staging $\to$ Fairing Jettison $\to$ Orbital Insertion) with live altitude, speed (km/h), and Mach number calculation.
+* **Flight Profile Simulator**: Step-by-step launch sequence (Liftoff $\to$ Max-Q $\to$ MECO $\to$ Staging $\to$ Fairing Jettison $\to$ Orbital Insertion) with live altitude, velocity (km/h), and Mach number calculation.
 * **Capacity Matrix**: Comparative payload capacities to Low Earth Orbit (LEO) and Geostationary Transfer Orbit (GTO).
 
-### 6. Destinations Explorer (`/destinations`)
+### 5. 🪐 Target Worlds & Destinations (`/destinations`)
 * Monographic guides to **The Moon (Luna)**, **Mars**, **Europa**, **Titan**, and **TRAPPIST-1e**.
 * Surface environments, geological histories, atmospheric pressures, and astrobiological habitability indices.
-* Open scientific frontiers and current/planned robotic missions.
+* Open scientific frontiers and active/scheduled robotic spacecraft visits.
 
-### 7. Orbital Mechanics Laboratory (`/orbital-lab`)
+### 6. ⚛️ Orbital Mechanics Laboratory (`/orbital-lab`)
 * **Newtonian Two-Body Physics Engine**: Real-time symplectic Velocity Verlet numerical integrator ($\mathbf{F} = \frac{GMm}{r^2}\hat{\mathbf{r}}$).
-* **Live User Controls**: Central body mass ($M$), initial orbital radius ($r_0$), orbital insertion speed ($v_0$), velocity vector angle (tangential vs radial), simulation speed.
+* **Live Controls**: Sliders for central body mass ($M$), initial orbital radius ($r_0$), orbital insertion speed ($v_0$), velocity vector angle (tangential vs radial), and simulation speed.
 * **Analytical Trajectory Overlay**: Dotted Keplerian predicted conic sections rendered simultaneously with true numerical integration history.
-* **Real-time Telemetry Readout**: Instantaneous distance, velocity, kinetic energy ($K$), potential energy ($U$), total specific energy ($E$), eccentricity ($e$), periapsis, apoapsis, and orbital period.
+* **Real-time Telemetry Readout**: Instantaneous distance, velocity, kinetic energy ($K$), potential energy ($U$), total energy ($E$), eccentricity ($e$), periapsis, apoapsis, and orbital period.
 * **Educational Presets**:
   1. *Stable Circular Orbit* ($v = \sqrt{GM/r}$, $e = 0$)
   2. *Elliptical Transfer Orbit* ($0 < e < 1$)
   3. *Sub-orbital Decaying Trajectory* (impact with surface)
   4. *Hyperbolic Escape Trajectory* ($v > \sqrt{2GM/r}$, $e > 1$, $E > 0$)
-* Classical mechanics documentation and numerical assumptions explained.
 
-### 8. Space Discovery (`/discover`)
+### 7. 🔭 Space Discoveries & NASA APOD (`/discover`)
 * Live integration with NASA's Astronomy Picture of the Day (APOD) API with graceful offline fallback to high-resolution astrophysics archives.
 * Peer-reviewed astronomical discovery dispatches across early cosmic dawn, black holes, and astrobiology.
 
-### 9. Global Search (`Cmd/Ctrl + K`)
-* Keyboard-accessible modal querying across all planets, missions, launch vehicles, destinations, and physics topics.
-* Instant keyboard navigation and categorized result badges.
-
-### 10. Observatory Specifications (`/about`)
-* Scientific methodology, observational vs simulation distinctions, data source attribution, and ethical non-commercial educational disclosure.
+### 8. 🔍 Global Keyboard Search (`Cmd/Ctrl + K`)
+* Instant modal search querying across all planets, missions, launch vehicles, destinations, and physics topics.
 
 ---
 
@@ -86,40 +78,37 @@ ORBITAL delivers an authentic space exploration experience using verified astron
 | Layer | Technologies |
 |---|---|
 | **Framework** | React 18, TypeScript 5, Vite 5 |
-| **Styling** | Tailwind CSS (Dark astrophysics design tokens, JetBrains Mono telemetry typography) |
+| **Styling** | Tailwind CSS, Custom Mission Control HUD design tokens |
+| **Fonts** | Outfit, Inter, JetBrains Mono (Google Fonts) |
 | **3D Engine** | Three.js, React Three Fiber (R3F), `@react-three/drei` |
-| **Routing** | React Router v6 |
+| **Routing** | React Router v6 (configured with SPA rewrites via `vercel.json`) |
 | **Icons** | Lucide React |
 | **Numerical Physics** | Symplectic Velocity Verlet 2-body gravitational integrator |
 
 ---
 
-## 🚀 Installation & Local Development
+## 🚀 Local Development
 
-### Prerequisites
-* Node.js v18+ (tested on Node v24.19)
-* npm v9+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/shubhamkerure07/orbital.git
+   cd orbital
+   ```
 
-### Commands
-
-1. **Install dependencies**:
+2. **Install dependencies**:
    ```bash
    npm install
    ```
 
-2. **Start development server**:
+3. **Start development server**:
    ```bash
    npm run dev
    ```
-   The application will be available at `http://localhost:3000`.
+   Open `http://localhost:3000` in your browser.
 
-3. **Verify TypeScript & Production Build**:
+4. **Production Build & Verification**:
    ```bash
    npm run build
-   ```
-
-4. **Preview Production Build**:
-   ```bash
    npm run preview
    ```
 
@@ -128,7 +117,7 @@ ORBITAL delivers an authentic space exploration experience using verified astron
 ## 🔬 Scientific Simulation Assumptions & Boundaries
 
 1. **Normalized Planetary Scales**: True physical distances and planetary diameters are reported in data cards. The 3D viewport applies normalized logarithmic spacing so that outer planets (e.g., Neptune at 30 AU) remain visible and interactable alongside inner terrestrial worlds.
-2. **Two-Body Gravitational Model**: The Orbital Lab models a single satellite orbiting a primary point mass. Real spaceflight dynamics also experience non-spherical gravitational harmonics ($J_2$ oblateness), atmospheric drag, solar radiation pressure, and $N$-body tidal perturbations.
+2. **Two-Body Gravitational Model**: The Orbital Lab models a single satellite orbiting a primary point mass. Real spaceflight dynamics additionally experience non-spherical gravitational harmonics ($J_2$ oblateness), atmospheric drag, solar radiation pressure, and $N$-body tidal perturbations.
 3. **Flight Profile Visualizer**: Flight telemetry sequences illustrate published nominal flight trajectories for educational understanding rather than predictive aerodynamic load simulations.
 
 ---

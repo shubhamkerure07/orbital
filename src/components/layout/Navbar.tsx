@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { 
   Orbit, 
@@ -13,13 +13,35 @@ import {
   BookOpen, 
   Info,
   Activity,
-  Wifi
+  Wifi,
+  ChevronDown,
+  Crosshair,
+  Sun,
+  Globe2,
+  Network,
+  Terminal,
+  Layers
 } from 'lucide-react';
 import { GlobalSearchModal } from './GlobalSearchModal';
+
+interface NavGroup {
+  label: string;
+  icon: React.ReactNode;
+  to?: string;
+  items?: {
+    to: string;
+    label: string;
+    desc: string;
+    icon: React.ReactNode;
+    badge?: string;
+  }[];
+}
 
 export const Navbar: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
   const [clockUtc, setClockUtc] = useState<string>('');
 
@@ -33,6 +55,12 @@ export const Navbar: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Close dropdown on route change
+  useEffect(() => {
+    setActiveDropdown(null);
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   // Listen for Ctrl+K or Cmd+K
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -45,15 +73,68 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const navLinks = [
-    { to: '/', label: 'Home', icon: <Orbit className="w-3.5 h-3.5" /> },
-    { to: '/explore', label: 'Explore', icon: <Globe className="w-3.5 h-3.5" /> },
-    { to: '/missions', label: 'Missions', icon: <Radio className="w-3.5 h-3.5" /> },
-    { to: '/rockets', label: 'Rockets', icon: <Rocket className="w-3.5 h-3.5" /> },
-    { to: '/destinations', label: 'Destinations', icon: <Compass className="w-3.5 h-3.5" /> },
-    { to: '/orbital-lab', label: 'Orbital Lab', icon: <Cpu className="w-3.5 h-3.5" /> },
-    { to: '/discover', label: 'Discover', icon: <BookOpen className="w-3.5 h-3.5" /> },
-    { to: '/about', label: 'About', icon: <Info className="w-3.5 h-3.5" /> },
+  const handleMouseEnter = (label: string) => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setActiveDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 200);
+  };
+
+  const navGroups: NavGroup[] = [
+    { 
+      to: '/explore', 
+      label: 'Explore', 
+      icon: <Globe className="w-3.5 h-3.5" /> 
+    },
+    { 
+      to: '/missions', 
+      label: 'Missions', 
+      icon: <Radio className="w-3.5 h-3.5" />,
+      items: [
+        { to: '/missions', label: 'Active Manifest', desc: 'NASA, ESA, ISRO flight ops', icon: <Radio className="w-3.5 h-3.5 text-holo-cyan" /> },
+        { to: '/rockets', label: 'Launch Vehicles', desc: 'Saturn V, Falcon 9, Starship', icon: <Rocket className="w-3.5 h-3.5 text-holo-cyan" /> },
+        { to: '/destinations', label: 'Planetary Targets', desc: 'Planets, dwarf worlds & moons', icon: <Compass className="w-3.5 h-3.5 text-holo-cyan" /> }
+      ]
+    },
+    { 
+      label: 'Observatory', 
+      icon: <Crosshair className="w-3.5 h-3.5" />,
+      items: [
+        { to: '/observatory/neo', label: 'NEO & Asteroids', desc: 'Planetary defense & close approaches', icon: <Crosshair className="w-3.5 h-3.5 text-holo-cyan" />, badge: 'CNEOS' },
+        { to: '/observatory/space-weather', label: 'Space Weather', desc: 'Solar wind, Kp index & aurora forecast', icon: <Sun className="w-3.5 h-3.5 text-amber-400" />, badge: 'NOAA' }
+      ]
+    },
+    { 
+      label: 'Simulate', 
+      icon: <Cpu className="w-3.5 h-3.5" />,
+      items: [
+        { to: '/orbital-lab', label: 'Orbital Mechanics Lab', desc: 'Symplectic 2D n-body gravitational sandbox', icon: <Cpu className="w-3.5 h-3.5 text-holo-cyan" /> },
+        { to: '/simulate/mission-designer', label: 'Mission Designer', desc: 'Hohmann transfer & Tsiolkovsky delta-V planner', icon: <Orbit className="w-3.5 h-3.5 text-emerald-400" />, badge: 'NEW' }
+      ]
+    },
+    { 
+      label: 'Discover', 
+      icon: <BookOpen className="w-3.5 h-3.5" />,
+      items: [
+        { to: '/discover', label: 'APOD & Breakthroughs', desc: 'NASA APOD and astrophysical discoveries', icon: <BookOpen className="w-3.5 h-3.5 text-holo-cyan" /> },
+        { to: '/discover/exoplanets', label: 'Exoplanet Laboratory', desc: 'Habitable worlds & transit spectroscopy', icon: <Globe2 className="w-3.5 h-3.5 text-emerald-400" />, badge: 'JWST' },
+        { to: '/discover/knowledge-graph', label: 'Universe Knowledge Graph', desc: 'Interactive cosmic ontology & force network', icon: <Network className="w-3.5 h-3.5 text-purple-400" />, badge: 'GRAPH' }
+      ]
+    },
+    { 
+      to: '/intelligence', 
+      label: 'Intelligence', 
+      icon: <Terminal className="w-3.5 h-3.5" /> 
+    },
+    { 
+      to: '/about', 
+      label: 'About', 
+      icon: <Info className="w-3.5 h-3.5" /> 
+    },
   ];
 
   return (
@@ -102,37 +183,111 @@ export const Navbar: React.FC = () => {
                 ORBITAL
               </span>
               <span className="text-[9px] font-mono tracking-widest text-holo-cyan/80 -mt-1 uppercase hidden sm:block">
-                Mission Control v2.4
+                Mission Control v2.0
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav Items */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.to || (link.to !== '/' && location.pathname.startsWith(link.to));
+            {navGroups.map((group) => {
+              const hasItems = !!group.items && group.items.length > 0;
+              const isGroupActive = group.to 
+                ? (location.pathname === group.to || (group.to !== '/' && location.pathname.startsWith(group.to)))
+                : (group.items?.some(it => location.pathname.startsWith(it.to)) ?? false);
+
+              if (!hasItems && group.to) {
+                return (
+                  <NavLink
+                    key={group.label}
+                    to={group.to}
+                    className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 relative group ${
+                      isGroupActive 
+                        ? 'text-holo-cyan bg-holo-cyan/10 border border-holo-cyan/40 shadow-[0_0_12px_rgba(0,242,255,0.2)]' 
+                        : 'text-slate-300 hover:text-white hover:bg-space-850 border border-transparent'
+                    }`}
+                  >
+                    {isGroupActive && (
+                      <>
+                        <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-holo-cyan" />
+                        <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-holo-cyan" />
+                      </>
+                    )}
+                    <span className={isGroupActive ? 'text-holo-cyan' : 'text-slate-400 group-hover:text-holo-cyan transition-colors'}>
+                      {group.icon}
+                    </span>
+                    <span>{group.label}</span>
+                  </NavLink>
+                );
+              }
+
+              // Dropdown Group Item
+              const isOpen = activeDropdown === group.label;
+
               return (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 relative group ${
-                    isActive 
-                      ? 'text-holo-cyan bg-holo-cyan/10 border border-holo-cyan/40 shadow-[0_0_12px_rgba(0,242,255,0.2)]' 
-                      : 'text-slate-300 hover:text-white hover:bg-space-850 border border-transparent'
-                  }`}
+                <div 
+                  key={group.label}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter(group.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {/* Subtle active corner ticks */}
-                  {isActive && (
-                    <>
-                      <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-holo-cyan" />
-                      <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-holo-cyan" />
-                    </>
+                  <button
+                    onClick={() => setActiveDropdown(isOpen ? null : group.label)}
+                    className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 relative group ${
+                      isGroupActive || isOpen
+                        ? 'text-holo-cyan bg-holo-cyan/10 border border-holo-cyan/40 shadow-[0_0_12px_rgba(0,242,255,0.2)]' 
+                        : 'text-slate-300 hover:text-white hover:bg-space-850 border border-transparent'
+                    }`}
+                  >
+                    <span className={isGroupActive ? 'text-holo-cyan' : 'text-slate-400 group-hover:text-holo-cyan'}>
+                      {group.icon}
+                    </span>
+                    <span>{group.label}</span>
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180 text-holo-cyan' : 'text-slate-500'}`} />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isOpen && (
+                    <div className="absolute top-full left-0 mt-1.5 w-72 p-2 rounded-xl bg-space-900/98 backdrop-blur-2xl border border-holo-cyan/40 shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-50 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="hud-corner-tl" />
+                      <div className="hud-corner-tr" />
+                      
+                      <div className="space-y-1">
+                        {group.items?.map((item) => {
+                          const isItemActive = location.pathname === item.to;
+                          return (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              className={`flex items-start gap-2.5 p-2 rounded-lg transition-colors text-xs font-mono ${
+                                isItemActive 
+                                  ? 'bg-holo-cyan/15 text-white border border-holo-cyan/30' 
+                                  : 'text-slate-300 hover:bg-space-850 hover:text-white'
+                              }`}
+                            >
+                              <div className="mt-0.5 p-1 rounded bg-space-950 border border-slate-800">
+                                {item.icon}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between">
+                                  <span className="font-bold text-white">{item.label}</span>
+                                  {item.badge && (
+                                    <span className="px-1 py-0.2 rounded text-[8px] font-mono bg-holo-cyan/20 text-holo-cyan border border-holo-cyan/40 font-bold">
+                                      {item.badge}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="text-[10px] text-slate-400 leading-tight mt-0.5">
+                                  {item.desc}
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
                   )}
-                  <span className={isActive ? 'text-holo-cyan' : 'text-slate-400 group-hover:text-holo-cyan transition-colors'}>
-                    {link.icon}
-                  </span>
-                  <span>{link.label}</span>
-                </NavLink>
+                </div>
               );
             })}
           </nav>
@@ -164,23 +319,62 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-space-900/98 backdrop-blur-2xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-1 animate-in fade-in slide-in-from-top-4 duration-200">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.to || (link.to !== '/' && location.pathname.startsWith(link.to));
+          <div className="lg:hidden bg-space-900/98 backdrop-blur-2xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 max-h-[80vh] overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200">
+            {navGroups.map((group) => {
+              if (!group.items) {
+                const isActive = group.to ? location.pathname === group.to : false;
+                return (
+                  <Link
+                    key={group.label}
+                    to={group.to || '#'}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono font-medium transition-colors ${
+                      isActive 
+                        ? 'bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40' 
+                        : 'text-slate-300 hover:bg-space-850 hover:text-white'
+                    }`}
+                  >
+                    <span className={isActive ? 'text-holo-cyan' : 'text-slate-400'}>{group.icon}</span>
+                    {group.label}
+                  </Link>
+                );
+              }
+
+              // Group with children in mobile menu
               return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono font-medium transition-colors ${
-                    isActive 
-                      ? 'bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40 shadow-sm' 
-                      : 'text-slate-300 hover:bg-space-850 hover:text-white'
-                  }`}
-                >
-                  <span className={isActive ? 'text-holo-cyan' : 'text-slate-400'}>{link.icon}</span>
-                  {link.label}
-                </Link>
+                <div key={group.label} className="space-y-1 pt-1">
+                  <div className="px-3 py-1 text-[10px] font-mono font-bold text-holo-cyan uppercase tracking-wider flex items-center gap-1.5">
+                    {group.icon}
+                    <span>{group.label}</span>
+                  </div>
+                  <div className="pl-3 space-y-1">
+                    {group.items.map((item) => {
+                      const isActive = location.pathname === item.to;
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-colors ${
+                            isActive
+                              ? 'bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40 font-bold'
+                              : 'text-slate-300 hover:bg-space-850 hover:text-white'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span>{item.icon}</span>
+                            <span>{item.label}</span>
+                          </div>
+                          {item.badge && (
+                            <span className="px-1.5 py-0.2 rounded text-[8px] font-mono bg-holo-cyan/20 text-holo-cyan">
+                              {item.badge}
+                            </span>
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
               );
             })}
           </div>

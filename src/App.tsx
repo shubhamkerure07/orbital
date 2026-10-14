@@ -12,6 +12,12 @@ import { OrbitalLabPage } from './pages/OrbitalLabPage';
 import { DiscoverPage } from './pages/DiscoverPage';
 import { AboutPage } from './pages/AboutPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { NeoObservatoryPage } from './pages/NeoObservatoryPage';
+import { SpaceWeatherPage } from './pages/SpaceWeatherPage';
+import { ExoplanetsPage } from './pages/ExoplanetsPage';
+import { MissionDesignerPage } from './pages/MissionDesignerPage';
+import { KnowledgeGraphPage } from './pages/KnowledgeGraphPage';
+import { IntelligencePage } from './pages/IntelligencePage';
 
 // Scroll restoration on navigation
 function ScrollToTop() {
@@ -39,6 +45,12 @@ export function App() {
           <Route path="/destinations" element={<DestinationsPage />} />
           <Route path="/orbital-lab" element={<OrbitalLabPage />} />
           <Route path="/discover" element={<DiscoverPage />} />
+          <Route path="/discover/exoplanets" element={<ExoplanetsPage />} />
+          <Route path="/discover/knowledge-graph" element={<KnowledgeGraphPage />} />
+          <Route path="/observatory/neo" element={<NeoObservatoryPage />} />
+          <Route path="/observatory/space-weather" element={<SpaceWeatherPage />} />
+          <Route path="/simulate/mission-designer" element={<MissionDesignerPage />} />
+          <Route path="/intelligence" element={<IntelligencePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

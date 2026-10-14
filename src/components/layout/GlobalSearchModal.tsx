@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, Globe, Rocket, Compass, Radio, ExternalLink } from 'lucide-react';
+import { Search, X, Globe, Rocket, Compass, Radio, ExternalLink, Crosshair } from 'lucide-react';
 import { PLANETS } from '../../data/planets';
 import { MISSIONS } from '../../data/missions';
 import { ROCKETS } from '../../data/rockets';
 import { DESTINATIONS } from '../../data/destinations';
 import { DISCOVERIES } from '../../data/discoveries';
+import { ASTEROIDS_DATABASE } from '../../data/asteroids';
+import { EXOPLANETS_DATABASE } from '../../data/exoplanets';
 import { Badge } from '../common/Badge';
 
 interface SearchResultItem {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Planet' | 'Mission' | 'Rocket' | 'Destination' | 'Discovery';
+  category: 'Planet' | 'Mission' | 'Rocket' | 'Destination' | 'Discovery' | 'Asteroid' | 'Exoplanet' | 'System';
   route: string;
 }
 
@@ -117,6 +119,54 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
         });
       }
     });
+
+    // Asteroids
+    ASTEROIDS_DATABASE.forEach(ast => {
+      if (ast.name.toLowerCase().includes(q) || ast.designation.toLowerCase().includes(q) || ast.summary.toLowerCase().includes(q)) {
+        const nextApp = ast.closeApproaches && ast.closeApproaches.length > 0 ? ast.closeApproaches[0] : null;
+        results.push({
+          id: ast.id,
+          title: ast.name,
+          subtitle: `NEO / PHA • ${nextApp ? `Miss Distance: ${nextApp.missDistanceLd} LD (${nextApp.date})` : 'Main Belt'}`,
+          category: 'Asteroid',
+          route: `/observatory/neo`
+        });
+      }
+    });
+
+    // Exoplanets
+    EXOPLANETS_DATABASE.forEach(exo => {
+      if (exo.name.toLowerCase().includes(q) || exo.hostStar.name.toLowerCase().includes(q) || exo.planetType.toLowerCase().includes(q)) {
+        results.push({
+          id: exo.id,
+          title: exo.name,
+          subtitle: `${exo.planetType} • ${exo.distanceLightYears} ly • ${exo.hostStar.name} (${exo.isInHabitableZone ? 'Habitable Zone' : 'Extreme'})`,
+          category: 'Exoplanet',
+          route: `/discover/exoplanets`
+        });
+      }
+    });
+
+    // Core Platform Systems
+    const coreSystems = [
+      { name: 'Space Weather Observatory', desc: 'Real-time solar wind, Kp index & aurora forecast', route: '/observatory/space-weather', tags: ['weather', 'sun', 'flare', 'cme', 'aurora', 'kp'] },
+      { name: 'Space Mission Designer', desc: 'Hohmann transfer & Tsiolkovsky delta-V staging calculator', route: '/simulate/mission-designer', tags: ['designer', 'hohmann', 'delta-v', 'trajectory', 'staging', 'fuel'] },
+      { name: 'Universe Knowledge Graph', desc: 'Interactive cosmic ontology & force-directed network', route: '/discover/knowledge-graph', tags: ['graph', 'ontology', 'network', 'relativity', 'physics'] },
+      { name: 'Orbital Mechanics Lab', desc: 'Symplectic 2D n-body gravitational sandbox', route: '/orbital-lab', tags: ['lab', 'simulator', 'gravity', 'newton'] },
+      { name: 'Scientific Intelligence', desc: 'Mathematical formulations, LaTeX proofs & peer-reviewed citations', route: '/intelligence', tags: ['intelligence', 'treatise', 'math', 'formulas', 'citations'] }
+    ];
+
+    coreSystems.forEach(sys => {
+      if (sys.name.toLowerCase().includes(q) || sys.desc.toLowerCase().includes(q) || sys.tags.some(t => t.includes(q))) {
+        results.push({
+          id: sys.route,
+          title: sys.name,
+          subtitle: sys.desc,
+          category: 'System',
+          route: sys.route
+        });
+      }
+    });
   }
 
   const handleSelect = (route: string) => {
@@ -131,6 +181,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
       case 'Rocket': return <Rocket className="w-4 h-4 text-amber-400" />;
       case 'Destination': return <Compass className="w-4 h-4 text-emerald-400" />;
       case 'Discovery': return <ExternalLink className="w-4 h-4 text-purple-400" />;
+      case 'Asteroid': return <Crosshair className="w-4 h-4 text-holo-cyan" />;
+      case 'Exoplanet': return <Globe className="w-4 h-4 text-emerald-400" />;
+      case 'System': return <Compass className="w-4 h-4 text-holo-cyan" />;
     }
   };
 

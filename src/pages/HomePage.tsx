@@ -336,6 +336,153 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Section E2: Connected Observatories & Laboratory Grid */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-slate-800/80">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <span className="text-xs font-mono uppercase text-holo-cyan tracking-wider flex items-center gap-1.5 mb-1">
+              <Layers className="w-4 h-4" /> Integrated Scientific Infrastructure
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-black text-white font-outfit uppercase">
+              Connected Observatories & Laboratories
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-slate-400">
+            6 Specialized Scientific Suites
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          
+          {/* Card 1: NEO Observatory */}
+          <Link
+            to="/observatory/neo"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-holo-cyan/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40">
+                NASA CNEOS
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-holo-cyan group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-holo-cyan transition-colors">
+              Asteroid & NEO Observatory
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Track 34,000+ near-Earth asteroids, inspect 2029 Apophis radar flyby trajectories, and analyze Torino impact hazard scales.
+            </p>
+          </Link>
+
+          {/* Card 2: Space Weather */}
+          <Link
+            to="/observatory/space-weather"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-amber-400/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-400/15 text-amber-400 border border-amber-400/40">
+                NOAA SWPC
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-amber-400 transition-colors">
+              Space Weather Observatory
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Real-time solar wind speed, proton density, Kp index gauge, CME transit models, and live aurora oval visibility forecasts.
+            </p>
+          </Link>
+
+          {/* Card 3: Exoplanets */}
+          <Link
+            to="/discover/exoplanets"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-emerald-400/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-400/15 text-emerald-400 border border-emerald-400/40">
+                JWST / CALTECH
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-emerald-400 transition-colors">
+              Exoplanet Discovery Lab
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Analyze 5,600+ confirmed exoplanets, test transit light curves ΔF/F = (Rp/R*)², and inspect JWST atmospheric molecules.
+            </p>
+          </Link>
+
+          {/* Card 4: Mission Designer */}
+          <Link
+            to="/simulate/mission-designer"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-holo-cyan/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40">
+                TRAJECTORY SOLVER
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-holo-cyan group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-holo-cyan transition-colors">
+              Space Mission Designer
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Compute heliocentric Hohmann transfer arcs, solve Tsiolkovsky propellant mass staging, and store flight plans.
+            </p>
+          </Link>
+
+          {/* Card 5: Knowledge Graph */}
+          <Link
+            to="/discover/knowledge-graph"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-purple-400/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-400/15 text-purple-400 border border-purple-400/40">
+                FORCE NETWORK
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-purple-400 transition-colors">
+              Universe Knowledge Graph
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Interactive 60 FPS topological force canvas revealing how black holes, stellar evolution, and orbital physics connect.
+            </p>
+          </Link>
+
+          {/* Card 6: Scientific Intelligence */}
+          <Link
+            to="/intelligence"
+            className="hud-card p-5 rounded-2xl border border-slate-800 hover:border-holo-cyan/50 transition-all group relative overflow-hidden"
+          >
+            <div className="hud-corner-tl" />
+            <div className="hud-corner-br" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40">
+                ASTROPHYSICS REPO
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-holo-cyan group-hover:translate-x-1 transition-all" />
+            </div>
+            <h3 className="text-lg font-outfit font-bold text-white group-hover:text-holo-cyan transition-colors">
+              Scientific Intelligence
+            </h3>
+            <p className="text-xs text-slate-400 mt-1 font-sans leading-relaxed">
+              Validated LaTeX mathematical proofs, Lagrange L1-L5 points, Oberth effect derivations, and peer-reviewed citations.
+            </p>
+          </Link>
+
+        </div>
+      </section>
+
       {/* Section F: Space Discovery Spotlight */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full mb-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">

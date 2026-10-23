@@ -192,7 +192,14 @@ export function calculateRequiredPropellantMass(
     throw new Error('Invalid mass, deltaV or Isp parameters');
   }
   const exponent = targetDeltaV_ms / (ispSeconds * G0_EARTH);
-  return dryMassKg * (Math.exp(exponent) - 1);
+  if (exponent > 700) {
+    throw new Error('Target delta-V exceeds physical propellant limits (arithmetic overflow)');
+  }
+  const result = dryMassKg * (Math.exp(exponent) - 1);
+  if (!Number.isFinite(result)) {
+    throw new Error('Calculated propellant mass is not finite');
+  }
+  return result;
 }
 
 /**

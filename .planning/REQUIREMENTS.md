@@ -23,8 +23,8 @@ Requirements for the current polish and enhancement milestone.
 
 ### Scientific Intelligence & Formula Rendering (SCI)
 
-- [ ] **SCI-01**: Render LaTeX mathematical formulas across all Scientific Intelligence treatises using KaTeX typography instead of raw monospace LaTeX strings
-- [ ] **SCI-02**: Validate exponent boundaries in Tsiolkovsky propellant calculation (`calculateRequiredPropellantMass`) to prevent IEEE 754 arithmetic overflow ($> 10^{308}$)
+- [x] **SCI-01**: Render LaTeX mathematical formulas across all Scientific Intelligence treatises using KaTeX typography instead of raw monospace LaTeX strings
+- [x] **SCI-02**: Validate exponent boundaries in Tsiolkovsky propellant calculation (`calculateRequiredPropellantMass`) to prevent IEEE 754 arithmetic overflow ($> 10^{308}$)
 
 ### Data Persistence & API Resilience (DATA)
 
@@ -69,8 +69,8 @@ Which phases cover which requirements.
 | PERF-02 | Phase 2 | Complete |
 | PERF-03 | Phase 2 | Complete |
 | PERF-04 | Phase 2 | Complete |
-| SCI-01 | Phase 3 | Pending |
-| SCI-02 | Phase 3 | Pending |
+| SCI-01 | Phase 3 | Complete |
+| SCI-02 | Phase 3 | Complete |
 | DATA-01 | Phase 4 | Pending |
 | DATA-02 | Phase 4 | Pending |
 

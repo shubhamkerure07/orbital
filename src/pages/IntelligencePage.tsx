@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import { 
   Search, 
   BookOpen, 
@@ -16,6 +18,30 @@ import {
 } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
 import { MetricCard } from '../components/common/MetricCard';
+
+const KatexFormula: React.FC<{ latex: string }> = ({ latex }) => {
+  const html = useMemo(() => {
+    try {
+      return katex.renderToString(latex, {
+        displayMode: true,
+        throwOnError: false
+      });
+    } catch {
+      return null;
+    }
+  }, [latex]);
+
+  if (!html) {
+    return <div className="font-mono text-sm text-slate-200">{latex}</div>;
+  }
+
+  return (
+    <div
+      className="katex-rendered text-holo-cyan overflow-x-auto py-2 text-center text-sm sm:text-base select-all"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+};
 
 interface IntelligenceTopic {
   id: string;
@@ -416,9 +442,9 @@ export const IntelligencePage: React.FC = () => {
                       </button>
                     </div>
 
-                    {/* Formula Display Box */}
-                    <div className="p-3 rounded-lg bg-[#020205] border border-holo-cyan/20 font-mono text-sm text-slate-100 overflow-x-auto text-center py-4">
-                      {formula.latex}
+                    {/* Formula Display Box with KaTeX typography */}
+                    <div className="p-3 rounded-lg bg-[#020205] border border-holo-cyan/20 overflow-x-auto text-center py-3">
+                      <KatexFormula latex={formula.latex} />
                     </div>
 
                     <p className="text-xs font-mono text-slate-400 leading-relaxed">

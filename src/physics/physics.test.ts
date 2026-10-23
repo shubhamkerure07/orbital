@@ -4,6 +4,7 @@ import {
   calculateOrbitalPeriod,
   calculateHohmannTransfer,
   calculateTsiolkovskyDeltaV,
+  calculateRequiredPropellantMass,
   calculateHillSphereRadius,
   CELESTIAL_MASSES_KG,
   CELESTIAL_RADII_M,
@@ -103,6 +104,41 @@ export function runPhysicsValidationTests(): { name: string; passed: boolean; de
     });
   } catch (err: any) {
     tests.push({ name: 'Hill Sphere', passed: false, details: err.message });
+  }
+
+  // Test 7: Required Propellant Mass Inversion
+  try {
+    const dryMass = 1000;
+    const deltaV = 10161;
+    const isp = 450;
+    const propMass = calculateRequiredPropellantMass(dryMass, deltaV, isp);
+    // Should be close to 9000 kg (mass ratio 10:1)
+    const passed = Math.abs(propMass - 9000) < 50;
+    tests.push({
+      name: 'Tsiolkovsky Propellant Inversion (Hydrolox)',
+      passed,
+      details: `Calculated: ${propMass.toFixed(0)} kg propellant (Expected: ~9000 kg)`
+    });
+  } catch (err: any) {
+    tests.push({ name: 'Propellant Mass Inversion', passed: false, details: err.message });
+  }
+
+  // Test 8: Arithmetic Overflow Guard Trap
+  try {
+    // Extreme deltaV of 10,000,000 m/s with small Isp triggers overflow guard
+    calculateRequiredPropellantMass(1000, 10000000, 100);
+    tests.push({
+      name: 'Propellant Arithmetic Overflow Guard',
+      passed: false,
+      details: 'Failed to trap exponential overflow'
+    });
+  } catch (err: any) {
+    const passed = err.message.includes('overflow') || err.message.includes('exceeds');
+    tests.push({
+      name: 'Propellant Arithmetic Overflow Guard',
+      passed,
+      details: `Safely trapped overflow: "${err.message}"`
+    });
   }
 
   return tests;

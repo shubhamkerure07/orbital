@@ -12,7 +12,7 @@ This roadmap drives the **v2.1 Polish & Scientific Fidelity Milestone** for the 
 
 Phases execute in numeric order: 1 → 2 → 3 → 4.
 
-- [ ] **Phase 1: 3D Visualization & Navigation Stabilization** - Fix camera tracking of orbiting bodies, zoom dollying, lerp jitter, and invalid planet route handling.
+- [x] **Phase 1: 3D Visualization & Navigation Stabilization** - Fix camera tracking of orbiting bodies, zoom dollying, lerp jitter, and invalid planet route handling. (completed 2026-10-23)
 - [ ] **Phase 2: Canvas Performance & Render Loop Optimization** - Decouple canvas sizing from 60 FPS draw loops, throttle telemetry React state updates, and optimize trajectory precomputations.
 - [ ] **Phase 3: Scientific Intelligence Math Rendering & Formula Guards** - Render formatted LaTeX mathematical proofs with KaTeX and guard astrodynamics exponential equations against overflow.
 - [ ] **Phase 4: Persistence Hardening & Security Defenses** - Add schema validation and quota resilience to local storage flight plans, and sanitize third-party video iframe embeds.
@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. 3D Visualization & Navigation | 0/2 | Planned    |  |
+| 1. 3D Visualization & Navigation | 0/2 | Complete    | 2026-10-23 |
 | 2. Canvas Performance & Optimization | 0/2 | Not started | - |
 | 3. Scientific Math & Formula Guards | 0/2 | Not started | - |
 | 4. Persistence & Security Defenses | 0/1 | Not started | - |

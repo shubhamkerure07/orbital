@@ -59,6 +59,7 @@ export const PlanetMesh: React.FC<PlanetMeshProps> = ({
         <group rotation={[tiltRad, 0, 0]}>
           <mesh
             ref={planetMeshRef}
+            name={`planet-${planet.id}`}
             onClick={(e) => {
               e.stopPropagation();
               onSelect(planet);

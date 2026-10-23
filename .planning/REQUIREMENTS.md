@@ -9,10 +9,10 @@ Requirements for the current polish and enhancement milestone.
 
 ### 3D Visualization & Graphics Stability (VIS)
 
-- [ ] **VIS-01**: Planet camera tracking smoothly lerps to live world position of selected revolving planet in 3D Solar System instead of static X-axis offset
-- [ ] **VIS-02**: Zoom in/out controls adjust camera distance along viewing axis without abruptly resetting camera angle or position
-- [ ] **VIS-03**: Hand off camera rotation control cleanly to OrbitControls once camera lerp approaches target threshold ($\epsilon < 0.1$) to prevent jitter
-- [ ] **VIS-04**: Invalid planet detail routes (`/explore/:invalidId`) gracefully redirect or render the themed 404 recovery view instead of falling back to Earth
+- [x] **VIS-01**: Planet camera tracking smoothly lerps to live world position of selected revolving planet in 3D Solar System instead of static X-axis offset
+- [x] **VIS-02**: Zoom in/out controls adjust camera distance along viewing axis without abruptly resetting camera angle or position
+- [x] **VIS-03**: Hand off camera rotation control cleanly to OrbitControls once camera lerp approaches target threshold ($\epsilon < 0.1$) to prevent jitter
+- [x] **VIS-04**: Invalid planet detail routes (`/explore/:invalidId`) gracefully redirect or render the themed 404 recovery view instead of falling back to Earth
 
 ### Canvas Performance & Frame Optimization (PERF)
 
@@ -61,10 +61,10 @@ Which phases cover which requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VIS-01 | Phase 1 | Pending |
-| VIS-02 | Phase 1 | Pending |
-| VIS-03 | Phase 1 | Pending |
-| VIS-04 | Phase 1 | Pending |
+| VIS-01 | Phase 1 | Complete |
+| VIS-02 | Phase 1 | Complete |
+| VIS-03 | Phase 1 | Complete |
+| VIS-04 | Phase 1 | Complete |
 | PERF-01 | Phase 2 | Pending |
 | PERF-02 | Phase 2 | Pending |
 | PERF-03 | Phase 2 | Pending |

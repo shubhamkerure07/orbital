@@ -18,13 +18,19 @@ import {
   Radio
 } from 'lucide-react';
 import { formatNumber, formatTempCelsius, formatDistance, formatEarthRelative } from '../utils/formatting';
+import { NotFoundPage } from './NotFoundPage';
 
 export const PlanetDetailPage: React.FC = () => {
   const { planetId } = useParams<{ planetId: string }>();
   const navigate = useNavigate();
 
   const planetIndex = PLANETS.findIndex(p => p.id === planetId);
-  const planet = planetIndex !== -1 ? PLANETS[planetIndex] : PLANETS[2]; // Default to Earth
+
+  if (planetIndex === -1) {
+    return <NotFoundPage />;
+  }
+
+  const planet = PLANETS[planetIndex];
 
   const prevPlanet = planetIndex > 0 ? PLANETS[planetIndex - 1] : PLANETS[PLANETS.length - 1];
   const nextPlanet = planetIndex < PLANETS.length - 1 ? PLANETS[planetIndex + 1] : PLANETS[0];

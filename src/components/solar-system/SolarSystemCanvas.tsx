@@ -17,32 +17,84 @@ import { LoadingSpinner } from '../common/LoadingSpinner';
  */
 function CameraController({
   selectedPlanet,
-  resetTrigger
+  resetTrigger,
+  zoomAction
 }: {
   selectedPlanet: PlanetData | null;
   resetTrigger: number;
+  zoomAction: { dir: 'in' | 'out'; id: number } | null;
 }) {
-  const { camera } = useThree();
+  const { camera, scene } = useThree();
   const controlsRef = useRef<any>(null);
+  const targetVec = useRef(new THREE.Vector3());
+  const desiredCamPos = useRef(new THREE.Vector3());
+  const isSettled = useRef(false);
+  const prevPlanetId = useRef<string | null>(null);
+
+  // When selected planet changes, reset settled flag so camera transitions smoothly
+  useEffect(() => {
+    if (selectedPlanet?.id !== prevPlanetId.current) {
+      isSettled.current = false;
+      prevPlanetId.current = selectedPlanet?.id || null;
+    }
+  }, [selectedPlanet]);
 
   // When resetTrigger changes, reset camera to overview position
   useEffect(() => {
     if (resetTrigger > 0) {
+      isSettled.current = false;
       camera.position.set(0, 45, 65);
-      camera.lookAt(0, 0, 0);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(0, 0, 0);
+        controlsRef.current.update();
+      }
     }
   }, [resetTrigger, camera]);
 
+  // Handle zoom action by dollying camera along its forward vector without resetting
+  useEffect(() => {
+    if (!zoomAction) return;
+    const dir = new THREE.Vector3();
+    camera.getWorldDirection(dir);
+    camera.position.addScaledVector(dir, zoomAction.dir === 'in' ? 5 : -5);
+    if (controlsRef.current) {
+      controlsRef.current.update();
+    }
+  }, [zoomAction, camera]);
+
   useFrame(() => {
     if (selectedPlanet) {
-      // Find approximate target
-      const targetPos = new THREE.Vector3(selectedPlanet.orbitRadiusVisual, 0, 0);
-      const desiredCamPos = new THREE.Vector3(
-        selectedPlanet.orbitRadiusVisual + selectedPlanet.sizeVisualScale * 3.5,
-        selectedPlanet.sizeVisualScale * 2.5,
-        selectedPlanet.sizeVisualScale * 4
-      );
-      camera.position.lerp(desiredCamPos, 0.04);
+      const planetObj = scene.getObjectByName(`planet-${selectedPlanet.id}`);
+      if (planetObj) {
+        planetObj.getWorldPosition(targetVec.current);
+
+        // Keep OrbitControls centered on the live rotating planet
+        if (controlsRef.current) {
+          controlsRef.current.target.lerp(targetVec.current, 0.1);
+        }
+
+        // Only force camera position until it settles close to the target,
+        // then hand off manual rotation cleanly to OrbitControls
+        if (!isSettled.current) {
+          const offsetDist = Math.max(selectedPlanet.sizeVisualScale * 4.5, 3.5);
+          desiredCamPos.current.set(
+            targetVec.current.x + offsetDist * 0.7,
+            targetVec.current.y + offsetDist * 0.5,
+            targetVec.current.z + offsetDist * 0.8
+          );
+
+          camera.position.lerp(desiredCamPos.current, 0.05);
+
+          if (camera.position.distanceTo(desiredCamPos.current) < 0.2) {
+            isSettled.current = true;
+          }
+        }
+      }
+    } else {
+      if (controlsRef.current && controlsRef.current.target.lengthSq() > 0.001) {
+        // Return controls target smoothly to origin if no planet selected
+        controlsRef.current.target.lerp(new THREE.Vector3(0, 0, 0), 0.05);
+      }
     }
   });
 
@@ -51,8 +103,8 @@ function CameraController({
       ref={controlsRef}
       enablePan={true}
       enableZoom={true}
-      minDistance={4}
-      maxDistance={140}
+      minDistance={2}
+      maxDistance={160}
       maxPolarAngle={Math.PI / 2 + 0.1}
       dampingFactor={0.05}
     />
@@ -86,7 +138,7 @@ export const SolarSystemCanvas: React.FC = () => {
   const [showLabels, setShowLabels] = useState<boolean>(true);
   const [resetTrigger, setResetTrigger] = useState<number>(0);
   const [webGLSupported, setWebGLSupported] = useState<boolean>(true);
-  const [cameraZoomStep, setCameraZoomStep] = useState<number>(0);
+  const [zoomAction, setZoomAction] = useState<{ dir: 'in' | 'out'; id: number } | null>(null);
 
   // Check WebGL availability
   useEffect(() => {
@@ -108,14 +160,11 @@ export const SolarSystemCanvas: React.FC = () => {
   };
 
   const handleZoomIn = () => {
-    setCameraZoomStep(prev => prev + 1);
-    // Camera trigger
-    setResetTrigger(prev => prev + 0.001);
+    setZoomAction({ dir: 'in', id: Date.now() });
   };
 
   const handleZoomOut = () => {
-    setCameraZoomStep(prev => prev - 1);
-    setResetTrigger(prev => prev - 0.001);
+    setZoomAction({ dir: 'out', id: Date.now() });
   };
 
   const fallbackUI = (
@@ -151,6 +200,7 @@ export const SolarSystemCanvas: React.FC = () => {
               <CameraController
                 selectedPlanet={selectedPlanet}
                 resetTrigger={resetTrigger}
+                zoomAction={zoomAction}
               />
 
               {/* Central Sun */}

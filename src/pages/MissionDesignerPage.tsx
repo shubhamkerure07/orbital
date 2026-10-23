@@ -71,6 +71,37 @@ interface SavedMission {
   savedAt: string;
 }
 
+function isValidSavedMission(item: any): item is SavedMission {
+  return (
+    item &&
+    typeof item === 'object' &&
+    typeof item.id === 'string' &&
+    typeof item.name === 'string' &&
+    typeof item.departure === 'string' &&
+    typeof item.target === 'string' &&
+    typeof item.deltaVTotalKmS === 'number' &&
+    typeof item.durationDays === 'number' &&
+    typeof item.propellantKg === 'number' &&
+    typeof item.engine === 'string'
+  );
+}
+
+function safeSaveMissions(missions: SavedMission[]): void {
+  const capped = missions.slice(0, 20);
+  try {
+    localStorage.setItem('orbital_saved_missions', JSON.stringify(capped));
+  } catch (err: any) {
+    if (err && (err.name === 'QuotaExceededError' || err.code === 22)) {
+      try {
+        // Fallback: prune oldest entries to 10 and retry
+        localStorage.setItem('orbital_saved_missions', JSON.stringify(capped.slice(0, 10)));
+      } catch {
+        // Ignore if storage permanently unavailable
+      }
+    }
+  }
+}
+
 export const MissionDesignerPage: React.FC = () => {
   const [departurePlanetId, setDeparturePlanetId] = useState<string>('earth');
   const [targetPlanetId, setTargetPlanetId] = useState<string>('mars');
@@ -79,15 +110,19 @@ export const MissionDesignerPage: React.FC = () => {
   const [missionName, setMissionName] = useState<string>('Ares Explorer I');
   const [savedMissions, setSavedMissions] = useState<SavedMission[]>([]);
 
-  // Load saved missions from localStorage
+  // Load saved missions from localStorage with schema validation
   useEffect(() => {
     try {
       const stored = localStorage.getItem('orbital_saved_missions');
       if (stored) {
-        setSavedMissions(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const validated = parsed.filter(isValidSavedMission).slice(0, 20);
+          setSavedMissions(validated);
+        }
       }
     } catch {
-      // Ignore
+      setSavedMissions([]);
     }
   }, []);
 
@@ -147,23 +182,15 @@ export const MissionDesignerPage: React.FC = () => {
       savedAt: new Date().toLocaleDateString()
     };
 
-    const updated = [newMission, ...savedMissions];
+    const updated = [newMission, ...savedMissions].slice(0, 20);
     setSavedMissions(updated);
-    try {
-      localStorage.setItem('orbital_saved_missions', JSON.stringify(updated));
-    } catch {
-      // Ignore
-    }
+    safeSaveMissions(updated);
   };
 
   const handleDeleteSaved = (id: string) => {
     const updated = savedMissions.filter(m => m.id !== id);
     setSavedMissions(updated);
-    try {
-      localStorage.setItem('orbital_saved_missions', JSON.stringify(updated));
-    } catch {
-      // Ignore
-    }
+    safeSaveMissions(updated);
   };
 
   return (

@@ -5,6 +5,22 @@ import { Badge } from '../common/Badge';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { ExternalLink, Radio, Calendar, Info, RefreshCw } from 'lucide-react';
 
+const isSafeVideoUrl = (url: string): boolean => {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    return (
+      host === 'www.youtube.com' ||
+      host === 'youtube.com' ||
+      host === 'www.youtube-nocookie.com' ||
+      host === 'player.vimeo.com' ||
+      host.endsWith('.nasa.gov')
+    );
+  } catch {
+    return false;
+  }
+};
+
 export const ApodSection: React.FC = () => {
   const [result, setResult] = useState<ApiFetchResult<DiscoveryItem> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,11 +53,12 @@ export const ApodSection: React.FC = () => {
         
         {/* Media Frame */}
         <div className="lg:col-span-7 bg-space-950 relative min-h-[380px] sm:min-h-[460px] flex items-center justify-center overflow-hidden">
-          {item.mediaType === 'video' ? (
+          {item.mediaType === 'video' && isSafeVideoUrl(item.url) ? (
             <iframe
               src={item.url}
               title={item.title}
               className="w-full h-full min-h-[400px] border-0"
+              sandbox="allow-scripts allow-same-origin allow-presentation"
               allowFullScreen
             />
           ) : (

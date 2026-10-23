@@ -28,8 +28,8 @@ Requirements for the current polish and enhancement milestone.
 
 ### Data Persistence & API Resilience (DATA)
 
-- [ ] **DATA-01**: Guard `localStorage` access in Mission Designer with JSON schema validation, max entry capping (20 entries), and quota exhaustion recovery
-- [ ] **DATA-02**: Sanitize NASA APOD video embed iframes with explicit sandbox permissions (`allow-scripts allow-same-origin allow-presentation`) and domain validation
+- [x] **DATA-01**: Guard `localStorage` access in Mission Designer with JSON schema validation, max entry capping (20 entries), and quota exhaustion recovery
+- [x] **DATA-02**: Sanitize NASA APOD video embed iframes with explicit sandbox permissions (`allow-scripts allow-same-origin allow-presentation`) and domain validation
 
 ## Future (v2.2+) Requirements
 
@@ -71,8 +71,8 @@ Which phases cover which requirements.
 | PERF-04 | Phase 2 | Complete |
 | SCI-01 | Phase 3 | Complete |
 | SCI-02 | Phase 3 | Complete |
-| DATA-01 | Phase 4 | Pending |
-| DATA-02 | Phase 4 | Pending |
+| DATA-01 | Phase 4 | Complete |
+| DATA-02 | Phase 4 | Complete |
 
 **Coverage:**
 - v2.1 requirements: 12 total

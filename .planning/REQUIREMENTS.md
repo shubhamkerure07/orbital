@@ -16,10 +16,10 @@ Requirements for the current polish and enhancement milestone.
 
 ### Canvas Performance & Frame Optimization (PERF)
 
-- [ ] **PERF-01**: Decouple canvas dimension assignment (`canvas.width`/`height`) from 60 FPS `requestAnimationFrame` loops via ResizeObserver across `OrbitalCanvas`, `KnowledgeGraphCanvas`, and `SolarFallback2D`
-- [ ] **PERF-02**: Throttle telemetry dispatch (`onMetricsUpdate`) in Orbital Lab from 60 Hz to 10 Hz (100ms) to eliminate React reconciliation lag during physics runs
-- [ ] **PERF-03**: Optimize orbital trajectory prediction in Orbital Lab by memoizing pre-computed conic points instead of re-integrating 450 steps every single animation frame
-- [ ] **PERF-04**: Replace O(N) array `.shift()` on 500-point spacecraft trail buffer with ring buffer or pre-allocated typed array
+- [x] **PERF-01**: Decouple canvas dimension assignment (`canvas.width`/`height`) from 60 FPS `requestAnimationFrame` loops via ResizeObserver across `OrbitalCanvas`, `KnowledgeGraphCanvas`, and `SolarFallback2D`
+- [x] **PERF-02**: Throttle telemetry dispatch (`onMetricsUpdate`) in Orbital Lab from 60 Hz to 10 Hz (100ms) to eliminate React reconciliation lag during physics runs
+- [x] **PERF-03**: Optimize orbital trajectory prediction in Orbital Lab by memoizing pre-computed conic points instead of re-integrating 450 steps every single animation frame
+- [x] **PERF-04**: Replace O(N) array `.shift()` on 500-point spacecraft trail buffer with ring buffer or pre-allocated typed array
 
 ### Scientific Intelligence & Formula Rendering (SCI)
 
@@ -65,10 +65,10 @@ Which phases cover which requirements.
 | VIS-02 | Phase 1 | Complete |
 | VIS-03 | Phase 1 | Complete |
 | VIS-04 | Phase 1 | Complete |
-| PERF-01 | Phase 2 | Pending |
-| PERF-02 | Phase 2 | Pending |
-| PERF-03 | Phase 2 | Pending |
-| PERF-04 | Phase 2 | Pending |
+| PERF-01 | Phase 2 | Complete |
+| PERF-02 | Phase 2 | Complete |
+| PERF-03 | Phase 2 | Complete |
+| PERF-04 | Phase 2 | Complete |
 | SCI-01 | Phase 3 | Pending |
 | SCI-02 | Phase 3 | Pending |
 | DATA-01 | Phase 4 | Pending |

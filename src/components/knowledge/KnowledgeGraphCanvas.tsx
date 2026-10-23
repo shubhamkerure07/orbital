@@ -45,9 +45,27 @@ export const KnowledgeGraphCanvas: React.FC = () => {
 
     let animId: number;
 
+    const updateSize = () => {
+      if (!canvas.parentElement) return;
+      const w = canvas.parentElement.clientWidth || 800;
+      const h = canvas.parentElement.clientHeight || 600;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    };
+    updateSize();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+    });
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
+
     const tick = () => {
-      const width = (canvas.width = canvas.parentElement?.clientWidth || 800);
-      const height = (canvas.height = canvas.parentElement?.clientHeight || 600);
+      const width = canvas.width || 800;
+      const height = canvas.height || 600;
       const centerX = width / 2;
       const centerY = height / 2;
 
@@ -216,7 +234,10 @@ export const KnowledgeGraphCanvas: React.FC = () => {
 
     tick();
 
-    return () => cancelAnimationFrame(animId);
+    return () => {
+      cancelAnimationFrame(animId);
+      resizeObserver.disconnect();
+    };
   }, [activeTypeFilter, searchQuery, selectedNode]);
 
   // Pointer interactions (drag & select)

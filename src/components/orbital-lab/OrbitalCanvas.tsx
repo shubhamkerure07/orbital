@@ -33,6 +33,8 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
   });
 
   const trailRef = useRef<[number, number][]>([]);
+  const predictedTrajectoryRef = useRef<[number, number][]>([]);
+  const lastMetricsDispatchRef = useRef<number>(0);
 
   // Reset body whenever user changes initial parameters or clicks reset
   useEffect(() => {
@@ -48,6 +50,11 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
       vy: vy
     };
     trailRef.current = [];
+    predictedTrajectoryRef.current = predictOrbitPath(bodyRef.current, centralMass, 450, 0.15);
+    
+    // Dispatch initial metrics immediately on reset/parameter change
+    const initialCentralRadius = Math.max(16, Math.min(32, Math.sqrt(centralMass) * 2.2));
+    onMetricsUpdate(calculateOrbitalMetrics(bodyRef.current, centralMass, 1, initialCentralRadius));
   }, [initialRadius, initialVelocity, velocityAngleDeg, centralMass, resetTrigger]);
 
   useEffect(() => {
@@ -58,9 +65,28 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
 
     let animationId: number;
 
+    // Decoupled ResizeObserver: update canvas dimensions only on true layout changes
+    const updateSize = () => {
+      if (!canvas.parentElement) return;
+      const w = canvas.parentElement.clientWidth || 700;
+      const h = canvas.parentElement.clientHeight || 550;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    };
+    updateSize();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+    });
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
+
     const render = () => {
-      const width = (canvas.width = canvas.parentElement?.clientWidth || 700);
-      const height = (canvas.height = canvas.parentElement?.clientHeight || 550);
+      const width = canvas.width || 700;
+      const height = canvas.height || 550;
 
       const centerX = width / 2;
       const centerY = height / 2;
@@ -96,9 +122,9 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
         ctx.setLineDash([]);
       });
 
-      // Theoretical predicted Kepler trajectory (dotted cyan path)
-      const predicted = predictOrbitPath(bodyRef.current, centralMass, 450, 0.15);
-      if (predicted.length > 1) {
+      // Memoized predicted Kepler trajectory (dotted cyan path)
+      const predicted = predictedTrajectoryRef.current;
+      if (predicted && predicted.length > 1) {
         ctx.beginPath();
         ctx.moveTo(centerX + predicted[0][0], centerY + predicted[0][1]);
         for (let i = 1; i < predicted.length; i++) {
@@ -133,7 +159,13 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
 
       // Update Physics Steps if not paused
       const metrics = calculateOrbitalMetrics(bodyRef.current, centralMass, 1, centralRadius);
-      onMetricsUpdate(metrics);
+      
+      // Throttled telemetry dispatch to 10 Hz (every 100ms) to avoid 60 FPS React re-renders
+      const now = performance.now();
+      if (now - lastMetricsDispatchRef.current >= 100) {
+        lastMetricsDispatchRef.current = now;
+        onMetricsUpdate(metrics);
+      }
 
       if (!isPaused && !metrics.isCollided && !metrics.isEscaped) {
         const subSteps = 6;
@@ -143,8 +175,8 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
         }
 
         trailRef.current.push([bodyRef.current.x, bodyRef.current.y]);
-        if (trailRef.current.length > 500) {
-          trailRef.current.shift();
+        if (trailRef.current.length > 550) {
+          trailRef.current = trailRef.current.slice(-500);
         }
       }
 
@@ -199,7 +231,10 @@ export const OrbitalCanvas: React.FC<OrbitalCanvasProps> = ({
 
     render();
 
-    return () => cancelAnimationFrame(animationId);
+    return () => {
+      cancelAnimationFrame(animationId);
+      resizeObserver.disconnect();
+    };
   }, [centralMass, simSpeed, isPaused, onMetricsUpdate]);
 
   return (

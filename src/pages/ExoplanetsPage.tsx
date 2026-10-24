@@ -50,15 +50,15 @@ export const ExoplanetsPage: React.FC = () => {
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-space-800 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-holo-cyan animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <Badge variant="cyan">NASA EXOPLANET ARCHIVE (CALTECH/IPAC)</Badge>
             <Badge variant="purple">JWST NIRSpec / MIRI SPECTROSCOPY</Badge>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-3">
-            <Globe2 className="w-8 h-8 text-holo-cyan" />
+            <Globe2 className="w-8 h-8 text-cyan-400" />
             Exoplanet Discovery & Habitable Zone Laboratory
           </h1>
           <p className="text-slate-400 text-sm mt-1 max-w-3xl">
@@ -67,13 +67,13 @@ export const ExoplanetsPage: React.FC = () => {
         </div>
 
         {/* Catalog Counter */}
-        <div className="hud-card p-3 rounded-lg border border-holo-cyan/30 flex items-center gap-4 bg-space-900/80">
-          <div className="w-10 h-10 rounded-full bg-holo-cyan/10 border border-holo-cyan/40 flex items-center justify-center text-holo-cyan">
+        <div className="hud-card p-3 rounded-lg border border-cyan-400/30 flex items-center gap-4 bg-space-900/80">
+          <div className="w-10 h-10 rounded-full bg-cyan-400/10 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
             <Sparkles className="w-5 h-5 animate-pulse" />
           </div>
           <div>
             <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">CONFIRMED WORLDS</div>
-            <div className="text-sm font-mono font-bold text-holo-cyan">5,630+ Exoplanets</div>
+            <div className="text-sm font-mono font-bold text-cyan-400">5,630+ Exoplanets</div>
             <div className="text-[10px] font-mono text-slate-400">4,190 Planetary Systems</div>
           </div>
         </div>
@@ -102,15 +102,15 @@ export const ExoplanetsPage: React.FC = () => {
           value="Transit"
           unit="74.2% of discoveries"
           subtext="Kepler & TESS"
-          accentColor="border-holo-cyan/40"
-          icon={<Activity className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/30"
+          icon={<Activity className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="Closest Known Exoplanet"
           value="4.24"
           unit="light-years"
           subtext="Proxima Centauri b"
-          accentColor="border-amber-400/40"
+          accentColor="border-amber-400/30"
           icon={<Compass className="w-4 h-4 text-amber-400" />}
         />
       </div>
@@ -125,7 +125,7 @@ export const ExoplanetsPage: React.FC = () => {
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Exoplanet Target Database
               </span>
-              <span className="text-[11px] font-mono text-holo-cyan">
+              <span className="text-[11px] font-mono text-cyan-400">
                 {filteredPlanets.length} Candidates
               </span>
             </div>
@@ -138,7 +138,7 @@ export const ExoplanetsPage: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search exoplanet or host star..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-slate-200"
+                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-slate-200"
               />
             </div>
 
@@ -178,7 +178,7 @@ export const ExoplanetsPage: React.FC = () => {
                   onClick={() => setSelectedPlanet(planet)}
                   className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-holo-cyan/10 border-holo-cyan shadow-[0_0_15px_rgba(0,242,255,0.2)]'
+                      ? 'bg-space-850 border-cyan-400 shadow-[0_0_15px_rgba(0,242,255,0.2)]'
                       : 'bg-space-900/50 border-slate-800/80 hover:border-slate-700 hover:bg-space-900'
                   }`}
                 >
@@ -211,7 +211,7 @@ export const ExoplanetsPage: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-slate-400 text-[9px] uppercase">Distance</div>
-                      <div className="text-holo-cyan font-bold">{planet.distanceLightYears} ly</div>
+                      <div className="text-cyan-400 font-bold">{planet.distanceLightYears} ly</div>
                     </div>
                     <div>
                       <div className="text-slate-400 text-[9px] uppercase">Period</div>
@@ -228,16 +228,16 @@ export const ExoplanetsPage: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           
           {/* Main Inspection HUD Card */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/40 bg-space-900/90 relative overflow-hidden">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/40 bg-space-900/90 relative overflow-hidden">
             <div className="hud-corner-tl" />
             <div className="hud-corner-tr" />
             <div className="hud-corner-bl" />
             <div className="hud-corner-br" />
 
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-space-800 pb-4">
               <div>
-                <div className="text-[10px] font-mono tracking-widest text-holo-cyan uppercase flex items-center gap-1.5">
+                <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase flex items-center gap-1.5">
                   <Orbit className="w-3.5 h-3.5" />
                   SPECTRAL CHARACTERIZATION PROFILE: {selectedPlanet.name}
                 </div>
@@ -264,7 +264,7 @@ export const ExoplanetsPage: React.FC = () => {
             </div>
 
             {/* Earth Relative Comparative Telemetry */}
-            <div className="my-5 p-4 rounded-xl bg-space-950/80 border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div className="my-5 p-4 rounded-xl bg-space-950/80 border border-space-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
               <div>
                 <div className="text-[10px] font-mono text-slate-400 uppercase">Radius Ratio</div>
                 <div className="text-sm font-mono font-bold text-white mt-0.5">
@@ -274,7 +274,7 @@ export const ExoplanetsPage: React.FC = () => {
               </div>
               <div>
                 <div className="text-[10px] font-mono text-slate-400 uppercase">Mass Ratio</div>
-                <div className="text-sm font-mono font-bold text-holo-cyan mt-0.5">
+                <div className="text-sm font-mono font-bold text-cyan-400 mt-0.5">
                   {selectedPlanet.massEarthRelative} <span className="text-xs text-slate-400">M⊕</span>
                 </div>
                 <div className="text-[9px] font-mono text-slate-400">vs. Earth (1.00)</div>
@@ -302,19 +302,19 @@ export const ExoplanetsPage: React.FC = () => {
             </div>
 
             {/* Interactive Transit Photometry Light Curve Simulator */}
-            <div className="p-4 rounded-xl bg-space-950/90 border border-slate-800 space-y-3">
+            <div className="p-4 rounded-xl bg-space-950/90 border border-space-800 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-                  <Activity className="w-3.5 h-3.5 text-holo-cyan" />
+                  <Activity className="w-3.5 h-3.5 text-cyan-400" />
                   Transit Photometry Light Curve Simulation
                 </span>
-                <span className="text-xs font-mono text-holo-cyan font-bold">
+                <span className="text-xs font-mono text-cyan-400 font-bold">
                   Transit Depth: {transitDepthPercent}% ({transitDepthPpm} ppm)
                 </span>
               </div>
 
               {/* Graphical Photometric Light Curve Graph */}
-              <div className="h-28 w-full bg-space-900 rounded-lg border border-slate-800/80 p-2 relative flex flex-col justify-between overflow-hidden">
+              <div className="h-28 w-full bg-space-900 rounded-lg border border-space-800/80 p-2 relative flex flex-col justify-between overflow-hidden">
                 <div className="flex justify-between text-[9px] font-mono text-slate-400">
                   <span>Relative Flux: 1.000</span>
                   <span>Ingress → Mid-Transit → Egress</span>
@@ -343,7 +343,7 @@ export const ExoplanetsPage: React.FC = () => {
 
                 <div className="flex justify-between text-[9px] font-mono text-slate-400">
                   <span>Out of Transit (F=1.0)</span>
-                  <span className="text-holo-cyan">ΔF/F = (Rp / R*)² = {transitDepthPercent}%</span>
+                  <span className="text-cyan-400">ΔF/F = (Rp / R*)² = {transitDepthPercent}%</span>
                   <span>Out of Transit</span>
                 </div>
               </div>
@@ -385,26 +385,26 @@ export const ExoplanetsPage: React.FC = () => {
             </div>
 
             {/* Scientific Significance & Summary */}
-            <div className="mt-5 pt-4 border-t border-slate-800 space-y-2 font-sans">
+            <div className="mt-5 pt-4 border-t border-space-800 space-y-2 font-sans">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Scientific Significance & Mission History
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                 {selectedPlanet.summary}
               </p>
-              <p className="text-xs sm:text-sm text-holo-cyan/90 leading-relaxed font-mono">
+              <p className="text-xs sm:text-sm text-cyan-400/90 leading-relaxed font-mono">
                 {selectedPlanet.keyScientificSignificance}
               </p>
             </div>
 
             {/* Citation & Source Link */}
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-mono">
+            <div className="mt-4 pt-3 border-t border-space-800 flex items-center justify-between text-xs font-mono">
               <span className="text-slate-400">Reference: {selectedPlanet.sourceReference}</span>
               <a
                 href={selectedPlanet.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-holo-cyan hover:underline flex items-center gap-1 font-bold"
+                className="text-cyan-400 hover:underline flex items-center gap-1 font-bold"
               >
                 NASA Exoplanet Archive <ExternalLink className="w-3 h-3" />
               </a>

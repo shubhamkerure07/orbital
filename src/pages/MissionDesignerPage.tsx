@@ -200,12 +200,12 @@ export const MissionDesignerPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-holo-cyan animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <Badge variant="cyan">HOHMANN TRAJECTORY SOLVER</Badge>
             <Badge variant="gold">TSIOLKOVSKY ROCKET PROPULSION</Badge>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-3">
-            <Compass className="w-8 h-8 text-holo-cyan" />
+            <Compass className="w-8 h-8 text-cyan-400" />
             Space Mission Designer & Trajectory Laboratory
           </h1>
           <p className="text-slate-400 text-sm mt-1 max-w-3xl">
@@ -216,10 +216,10 @@ export const MissionDesignerPage: React.FC = () => {
         {/* Action button */}
         <button
           onClick={handleSaveMission}
-          className="px-4 py-2 rounded-lg bg-holo-cyan text-space-950 font-mono font-bold text-xs flex items-center gap-2 hover:bg-white transition-all shadow-[0_0_15px_rgba(0,242,255,0.4)]"
+          className="px-4 py-2 rounded-xl bg-cyan-400 text-space-950 font-mono font-bold text-xs flex items-center gap-2 hover:bg-cyan-300 transition-all shadow-[0_0_15px_rgba(0,242,255,0.3)] active:scale-[0.98]"
         >
           <Save className="w-4 h-4" />
-          SAVE FLIGHT ARCHITECTURE
+          <span>Save Flight Architecture</span>
         </button>
       </div>
 
@@ -230,8 +230,8 @@ export const MissionDesignerPage: React.FC = () => {
           value={(transferResult.totalDeltaV_ms / 1000).toFixed(2)}
           unit="km/s"
           subtext="Heliocentric budget"
-          accentColor="border-holo-cyan/40"
-          icon={<Gauge className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/40"
+          icon={<Gauge className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="One-Way Transit Time"
@@ -267,7 +267,7 @@ export const MissionDesignerPage: React.FC = () => {
           
           {/* Mission Name & Routing */}
           <div className="hud-card p-5 rounded-xl border border-slate-800 bg-space-900/70 space-y-4">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-holo-cyan flex items-center gap-2">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
               <Rocket className="w-4 h-4" />
               Mission Parameters & Trajectory Route
             </h3>
@@ -281,7 +281,7 @@ export const MissionDesignerPage: React.FC = () => {
                 type="text"
                 value={missionName}
                 onChange={(e) => setMissionName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-white"
+                className="w-full px-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-white"
               />
             </div>
 
@@ -294,7 +294,7 @@ export const MissionDesignerPage: React.FC = () => {
                 <select
                   value={departurePlanetId}
                   onChange={(e) => setDeparturePlanetId(e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-white"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-white"
                 >
                   {PLANETARY_TARGETS.map(p => (
                     <option key={p.id} value={p.id}>{p.name} ({p.semiMajorAxisAu} AU)</option>
@@ -310,7 +310,7 @@ export const MissionDesignerPage: React.FC = () => {
                 <select
                   value={targetPlanetId}
                   onChange={(e) => setTargetPlanetId(e.target.value)}
-                  className="w-full px-2.5 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-white"
+                  className="w-full px-2.5 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-white"
                 >
                   {PLANETARY_TARGETS.map(p => (
                     <option key={p.id} value={p.id} disabled={p.id === departurePlanetId}>
@@ -325,7 +325,7 @@ export const MissionDesignerPage: React.FC = () => {
             <div className="space-y-1.5 pt-2 border-t border-slate-800/80">
               <div className="flex justify-between text-xs font-mono">
                 <span className="text-slate-300">Spacecraft Dry Mass (Payload + Structure):</span>
-                <span className="text-holo-cyan font-bold">{dryMassKg.toLocaleString()} kg</span>
+                <span className="text-cyan-400 font-bold">{dryMassKg.toLocaleString()} kg</span>
               </div>
               <input
                 type="range"
@@ -334,7 +334,7 @@ export const MissionDesignerPage: React.FC = () => {
                 step="500"
                 value={dryMassKg}
                 onChange={(e) => setDryMassKg(Number(e.target.value))}
-                className="w-full accent-holo-cyan bg-space-950 h-1.5 rounded cursor-pointer"
+                className="w-full accent-cyan-400 bg-space-950 h-1.5 rounded cursor-pointer"
               />
               <div className="flex justify-between text-[10px] font-mono text-slate-400">
                 <span>500 kg (Small Probe)</span>
@@ -356,13 +356,13 @@ export const MissionDesignerPage: React.FC = () => {
                     onClick={() => setSelectedEngineId(eng.id)}
                     className={`p-2.5 rounded-lg border cursor-pointer transition-all ${
                       selectedEngineId === eng.id
-                        ? 'bg-holo-cyan/15 border-holo-cyan shadow-sm'
+                        ? 'bg-cyan-400/15 border-cyan-400 shadow-sm'
                         : 'bg-space-950 border-slate-800/80 hover:border-slate-700'
                     }`}
                   >
                     <div className="flex items-center justify-between text-xs font-mono">
                       <span className="font-bold text-white">{eng.name}</span>
-                      <span className="text-holo-cyan font-bold">{eng.ispSec} s Isp</span>
+                      <span className="text-cyan-400 font-bold">{eng.ispSec} s Isp</span>
                     </div>
                     <div className="text-[10px] font-mono text-slate-400 mt-0.5 flex justify-between">
                       <span>{eng.type}</span>
@@ -373,6 +373,17 @@ export const MissionDesignerPage: React.FC = () => {
               </div>
             </div>
 
+            {/* Save Flight Plan Action */}
+            <div className="pt-2">
+              <button
+                onClick={handleSaveMission}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-space-950 font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,242,255,0.3)] active:scale-[0.98]"
+              >
+                <Save className="w-4 h-4" />
+                <span>Save Flight Architecture</span>
+              </button>
+            </div>
+
           </div>
 
           {/* Saved Flight Architectures */}
@@ -381,7 +392,7 @@ export const MissionDesignerPage: React.FC = () => {
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Saved Mission Architectures
               </span>
-              <span className="text-[10px] font-mono text-holo-cyan">
+              <span className="text-[10px] font-mono text-cyan-400">
                 {savedMissions.length} Stored
               </span>
             </div>
@@ -419,14 +430,14 @@ export const MissionDesignerPage: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           
           {/* Main Inspection HUD Card */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/40 bg-space-900/90 relative overflow-hidden">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/40 bg-space-900/90 relative overflow-hidden">
             <div className="hud-corner-tl" />
             <div className="hud-corner-tr" />
             <div className="hud-corner-bl" />
             <div className="hud-corner-br" />
 
             <div className="border-b border-slate-800 pb-4 mb-5">
-              <div className="text-[10px] font-mono tracking-widest text-holo-cyan uppercase flex items-center gap-1.5">
+              <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase flex items-center gap-1.5">
                 <Orbit className="w-3.5 h-3.5" />
                 ORBITAL FLIGHT PROFILE: {departure.name.toUpperCase()} TO {target.name.toUpperCase()}
               </div>
@@ -443,7 +454,7 @@ export const MissionDesignerPage: React.FC = () => {
               
               <div className="p-4 rounded-xl bg-space-950 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-holo-cyan flex items-center gap-1.5">
+                  <span className="text-xs font-mono font-bold text-cyan-400 flex items-center gap-1.5">
                     <Rocket className="w-3.5 h-3.5" />
                     Burn 1: Injection (Δv₁)
                   </span>
@@ -477,7 +488,7 @@ export const MissionDesignerPage: React.FC = () => {
             <div className="p-4 rounded-xl bg-space-950/80 border border-slate-800 space-y-3">
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-slate-300">Heliocentric Trajectory Diagram</span>
-                <span className="text-holo-cyan font-bold">180° Orbital Arc</span>
+                <span className="text-cyan-400 font-bold">180° Orbital Arc</span>
               </div>
 
               {/* Scaled Visual Orbit Arc */}
@@ -495,7 +506,7 @@ export const MissionDesignerPage: React.FC = () => {
                 <div className="absolute w-48 h-48 rounded-full border border-dashed border-slate-700/60 pointer-events-none" />
 
                 {/* Transfer Ellipse Arc */}
-                <div className="absolute w-38 h-48 rounded-[50%] border-2 border-holo-cyan/70 border-b-transparent border-l-transparent transform rotate-45 pointer-events-none" />
+                <div className="absolute w-38 h-48 rounded-[50%] border-2 border-cyan-400/70 border-b-transparent border-l-transparent transform rotate-45 pointer-events-none" />
 
                 {/* Departure Planet Pin */}
                 <div className="absolute left-[36%] top-[50%] transform -translate-y-1/2 flex items-center gap-1 z-20">
@@ -510,7 +521,7 @@ export const MissionDesignerPage: React.FC = () => {
                 </div>
 
                 {/* Trajectory label */}
-                <div className="absolute bottom-2 right-3 text-[10px] font-mono text-holo-cyan">
+                <div className="absolute bottom-2 right-3 text-[10px] font-mono text-cyan-400">
                   Transfer: {Math.round(transferResult.transferDurationDays)} Days
                 </div>
               </div>
@@ -543,7 +554,7 @@ export const MissionDesignerPage: React.FC = () => {
 
                 <div className="bg-space-950 p-3 rounded-lg border border-slate-800/80">
                   <div className="text-[10px] text-slate-400 uppercase">Total Wet Mass (m₀)</div>
-                  <div className="text-sm font-bold text-holo-cyan mt-0.5">{Math.round(totalWetMassKg).toLocaleString()} kg</div>
+                  <div className="text-sm font-bold text-cyan-400 mt-0.5">{Math.round(totalWetMassKg).toLocaleString()} kg</div>
                   <div className="text-[10px] text-slate-400">Launch Configuration</div>
                 </div>
               </div>

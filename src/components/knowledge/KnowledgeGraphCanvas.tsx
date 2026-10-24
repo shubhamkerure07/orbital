@@ -287,31 +287,52 @@ export const KnowledgeGraphCanvas: React.FC = () => {
       {/* Search & Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-space-900 border border-white/5 font-mono text-xs">
         <div className="flex items-center gap-2 flex-1 max-w-md">
-          <Search className="w-4 h-4 text-holo-cyan" />
+          <Search className="w-4 h-4 text-cyan-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search celestial node or mission..."
-            className="w-full bg-space-950 px-3 py-1.5 rounded-lg border border-white/10 text-slate-200 outline-none focus:border-holo-cyan"
+            className="w-full bg-space-950 px-3 py-1.5 rounded-lg border border-white/10 text-slate-200 outline-none focus:border-cyan-400"
           />
         </div>
 
-        {/* Type Filter Buttons */}
-        <div className="flex flex-wrap gap-1.5">
+        {/* Type Filter Buttons & Reset */}
+        <div className="flex flex-wrap items-center gap-1.5">
           {['all', 'body', 'mission', 'rocket', 'concept'].map((type) => (
             <button
               key={type}
               onClick={() => setActiveTypeFilter(type)}
-              className={`px-3 py-1 rounded-lg uppercase tracking-wider text-[11px] font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl uppercase tracking-wider text-[11px] font-bold transition-all font-mono ${
                 activeTypeFilter === type
-                  ? 'bg-holo-cyan text-space-950 shadow-[0_0_12px_rgba(0,242,255,0.3)]'
-                  : 'bg-space-950 text-slate-400 hover:text-white border border-white/5'
+                  ? 'bg-cyan-400 text-space-950 shadow-[0_0_12px_rgba(0,242,255,0.3)]'
+                  : 'bg-space-950 text-slate-400 hover:text-white border border-slate-800'
               }`}
             >
               {type}
             </button>
           ))}
+          <button
+            onClick={() => {
+              const total = KNOWLEDGE_GRAPH_DATA.nodes.length;
+              const radius = 240;
+              nodesRef.current = KNOWLEDGE_GRAPH_DATA.nodes.map((node, i) => {
+                const theta = (i / total) * 2 * Math.PI;
+                return {
+                  ...node,
+                  x: 400 + Math.cos(theta) * radius,
+                  y: 300 + Math.sin(theta) * radius,
+                  vx: 0,
+                  vy: 0
+                };
+              });
+            }}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-space-950 text-slate-400 hover:text-white border border-slate-800 text-[11px] font-mono transition-colors"
+            title="Reset node layout"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Reset</span>
+          </button>
         </div>
       </div>
 
@@ -329,7 +350,7 @@ export const KnowledgeGraphCanvas: React.FC = () => {
           />
 
           <div className="absolute top-4 left-4 flex items-center gap-2 text-[10px] font-mono text-slate-400 bg-space-950/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/5">
-            <span className="w-2 h-2 rounded-full bg-holo-cyan animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <span>Interactive Neural Space Graph • Drag Nodes to Reposition</span>
           </div>
         </div>
@@ -357,7 +378,7 @@ export const KnowledgeGraphCanvas: React.FC = () => {
 
               {/* Connected Relationships */}
               <div>
-                <h4 className="text-xs uppercase font-mono font-bold tracking-wider text-holo-cyan mb-3 flex items-center gap-1.5">
+                <h4 className="text-xs uppercase font-mono font-bold tracking-wider text-cyan-400 mb-3 flex items-center gap-1.5">
                   <Share2 className="w-3.5 h-3.5" />
                   Active Connected Relationships ({activeEdges.length})
                 </h4>
@@ -373,9 +394,9 @@ export const KnowledgeGraphCanvas: React.FC = () => {
                       <div
                         key={edge.id}
                         onClick={() => setSelectedNode(otherNode)}
-                        className="p-2.5 rounded-xl bg-space-950 border border-white/5 hover:border-holo-cyan/50 cursor-pointer transition-colors"
+                        className="p-2.5 rounded-xl bg-space-950 border border-white/5 hover:border-cyan-400/50 cursor-pointer transition-colors"
                       >
-                        <span className="text-[10px] text-holo-cyan block uppercase">
+                        <span className="text-[10px] text-cyan-400 block uppercase">
                           {edge.relationship}
                         </span>
                         <span className="text-slate-200 font-bold mt-0.5 block">
@@ -392,7 +413,7 @@ export const KnowledgeGraphCanvas: React.FC = () => {
                 <div className="pt-2">
                   <Link
                     to={selectedNode.route}
-                    className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-holo-cyan hover:bg-[#33f5ff] text-space-950 font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,242,255,0.3)]"
+                    className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-space-950 font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(0,242,255,0.3)]"
                   >
                     <span>Inspect In Platform Module</span>
                     <ArrowRight className="w-4 h-4" />

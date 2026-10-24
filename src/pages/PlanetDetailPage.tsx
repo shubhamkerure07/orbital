@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { formatNumber, formatTempCelsius, formatDistance, formatEarthRelative } from '../utils/formatting';
 import { NotFoundPage } from './NotFoundPage';
+import { GlossaryTooltip } from '../components/common/GlossaryTooltip';
 
 export const PlanetDetailPage: React.FC = () => {
   const { planetId } = useParams<{ planetId: string }>();
@@ -46,7 +47,7 @@ export const PlanetDetailPage: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
         <Link
           to="/explore"
-          className="flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-gold-400 transition-colors"
+          className="flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-cyan-400 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Return to 3D Solar System</span>
@@ -56,7 +57,7 @@ export const PlanetDetailPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(`/explore/${prevPlanet.id}`)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-space-900 hover:bg-space-850 text-slate-300 text-xs font-mono border border-slate-800"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-space-900 hover:bg-space-850 text-slate-300 hover:text-white text-xs font-mono border border-slate-800 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">{prevPlanet.name}</span>
@@ -65,7 +66,8 @@ export const PlanetDetailPage: React.FC = () => {
           <select
             value={planet.id}
             onChange={(e) => navigate(`/explore/${e.target.value}`)}
-            className="px-3 py-1.5 rounded-lg bg-space-950 text-slate-200 border border-slate-700 text-xs font-mono outline-none"
+            className="px-3 py-1.5 rounded-xl bg-space-950 text-slate-200 border border-slate-700 text-xs font-mono outline-none hover:border-cyan-400/50 cursor-pointer"
+            aria-label="Select planet"
           >
             {PLANETS.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
@@ -74,7 +76,7 @@ export const PlanetDetailPage: React.FC = () => {
 
           <button
             onClick={() => navigate(`/explore/${nextPlanet.id}`)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-space-900 hover:bg-space-850 text-slate-300 text-xs font-mono border border-slate-800"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-space-900 hover:bg-space-850 text-slate-300 hover:text-white text-xs font-mono border border-slate-800 transition-colors"
           >
             <span className="hidden sm:inline">{nextPlanet.name}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -83,7 +85,10 @@ export const PlanetDetailPage: React.FC = () => {
       </div>
 
       {/* Hero Overview */}
-      <div className="rounded-3xl bg-space-900 border border-slate-800 p-8 sm:p-12 relative overflow-hidden">
+      <div className="hud-card rounded-3xl bg-space-900 border border-slate-800 p-8 sm:p-12 relative overflow-hidden">
+        <div className="hud-corner-tl" />
+        <div className="hud-corner-br" />
+
         <div 
           className="absolute -top-32 -right-32 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none"
           style={{ backgroundColor: planet.colorHex }}
@@ -97,7 +102,7 @@ export const PlanetDetailPage: React.FC = () => {
               {planet.hasRings && <Badge variant="gold">Planetary Rings</Badge>}
             </div>
 
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-100 font-mono tracking-tight flex items-center gap-4">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-4">
               <span 
                 className="w-7 h-7 rounded-full inline-block flex-shrink-0 border border-white/30"
                 style={{ backgroundColor: planet.colorHex }}
@@ -105,8 +110,8 @@ export const PlanetDetailPage: React.FC = () => {
               {planet.name}
             </h1>
 
-            <p className="text-gold-400 font-mono text-base">{planet.tagline}</p>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-cyan-400 font-mono text-base">{planet.tagline}</p>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
               {planet.overview}
             </p>
           </div>
@@ -115,7 +120,7 @@ export const PlanetDetailPage: React.FC = () => {
             <div 
               className="w-48 h-48 sm:w-56 sm:h-56 rounded-full border border-white/20 shadow-2xl relative flex items-center justify-center"
               style={{
-                background: `radial-gradient(circle at 35% 35%, ${planet.accentColor}, ${planet.roughColor}, #000000)`
+                background: `radial-gradient(circle at 35% 35%, ${planet.accentColor}, ${planet.roughColor}, #020205)`
               }}
             >
               <div className="absolute inset-0 rounded-full blur-md opacity-30" style={{ backgroundColor: planet.colorHex }} />
@@ -126,8 +131,8 @@ export const PlanetDetailPage: React.FC = () => {
 
       {/* Complete Physical Characteristics Grid */}
       <section className="space-y-4">
-        <h3 className="text-xl font-bold text-slate-100 font-mono flex items-center gap-2">
-          <Compass className="w-5 h-5 text-gold-400" />
+        <h3 className="text-xl font-bold text-white font-outfit flex items-center gap-2">
+          <Compass className="w-5 h-5 text-cyan-400" />
           Physical & Orbital Parameters
         </h3>
 
@@ -137,7 +142,7 @@ export const PlanetDetailPage: React.FC = () => {
             value={formatNumber(planet.diameterKm)}
             unit="km"
             subtext={`Mean planetary radius: ${formatNumber(Math.round(planet.diameterKm / 2))} km`}
-            icon={<Compass className="w-4 h-4" />}
+            icon={<Compass className="w-4 h-4 text-cyan-400" />}
           />
 
           <MetricCard
@@ -145,7 +150,7 @@ export const PlanetDetailPage: React.FC = () => {
             value={planet.distanceAu.toFixed(3)}
             unit="AU"
             subtext={`${formatDistance(planet.distanceFromSunMillionKm)}`}
-            icon={<Orbit className="w-4 h-4" />}
+            icon={<Orbit className="w-4 h-4 text-cyan-400" />}
           />
 
           <MetricCard
@@ -153,7 +158,7 @@ export const PlanetDetailPage: React.FC = () => {
             value={planet.orbitalPeriodDays.toFixed(1)}
             unit="days"
             subtext={`${(planet.orbitalPeriodDays / 365.25).toFixed(2)} Earth years`}
-            icon={<Clock className="w-4 h-4" />}
+            icon={<Clock className="w-4 h-4 text-cyan-400" />}
           />
 
           <MetricCard
@@ -161,7 +166,7 @@ export const PlanetDetailPage: React.FC = () => {
             value={planet.orbitalVelocityKms.toFixed(2)}
             unit="km/s"
             subtext={`${formatNumber(Math.round(planet.orbitalVelocityKms * 3600))} km/h`}
-            icon={<Orbit className="w-4 h-4" />}
+            icon={<Orbit className="w-4 h-4 text-cyan-400" />}
           />
 
           <MetricCard
@@ -169,14 +174,14 @@ export const PlanetDetailPage: React.FC = () => {
             value={planet.surfaceGravityMs2.toFixed(2)}
             unit="m/s²"
             subtext={`${planet.gravityEarthRelative.toFixed(2)}× Earth surface gravity`}
-            icon={<Weight className="w-4 h-4" />}
+            icon={<Weight className="w-4 h-4 text-emerald-400" />}
           />
 
           <MetricCard
             label="Mean Temperature"
             value={formatTempCelsius(planet.avgTempCelsius)}
             subtext={`Min: ${planet.minTempCelsius ?? 'N/A'}°C | Max: ${planet.maxTempCelsius ?? 'N/A'}°C`}
-            icon={<Thermometer className="w-4 h-4" />}
+            icon={<Thermometer className="w-4 h-4 text-amber-400" />}
           />
 
           <MetricCard
@@ -184,21 +189,24 @@ export const PlanetDetailPage: React.FC = () => {
             value={Math.abs(planet.rotationPeriodHours).toFixed(1)}
             unit="hours"
             subtext={planet.rotationPeriodHours < 0 ? 'Retrograde spin (clockwise)' : 'Prograde spin (counter-clockwise)'}
-            icon={<Clock className="w-4 h-4" />}
+            icon={<Clock className="w-4 h-4 text-purple-400" />}
           />
 
           <MetricCard
             label="Axial Tilt"
             value={`${planet.axialTiltDegrees.toFixed(1)}°`}
             subtext="Obliquity to orbit plane"
-            icon={<Compass className="w-4 h-4" />}
+            icon={<Compass className="w-4 h-4 text-cyan-400" />}
           />
         </div>
       </section>
 
       {/* Atmospheric Composition Breakdown */}
-      <section className="rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 space-y-6">
-        <h3 className="text-xl font-bold text-slate-100 font-mono flex items-center gap-2">
+      <section className="hud-card rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 space-y-6 relative">
+        <div className="hud-corner-tl" />
+        <div className="hud-corner-br" />
+
+        <h3 className="text-xl font-bold text-white font-outfit flex items-center gap-2">
           <Layers className="w-5 h-5 text-cyan-400" />
           Atmospheric Composition & Chemistry
         </h3>
@@ -208,11 +216,11 @@ export const PlanetDetailPage: React.FC = () => {
             <div key={gas.gas} className="space-y-1.5 font-mono text-xs">
               <div className="flex justify-between text-slate-300">
                 <span>{gas.gas}</span>
-                <span className="text-gold-400 font-bold">{gas.percentage}%</span>
+                <span className="text-cyan-400 font-bold">{gas.percentage}%</span>
               </div>
               <div className="w-full h-2.5 bg-space-950 rounded-full overflow-hidden border border-slate-800">
                 <div 
-                  className="h-full bg-gradient-to-r from-gold-500 to-cyan-400 rounded-full"
+                  className="h-full bg-gradient-to-r from-cyan-500 to-cyan-300 rounded-full"
                   style={{ width: `${Math.min(100, gas.percentage)}%` }}
                 />
               </div>
@@ -222,15 +230,18 @@ export const PlanetDetailPage: React.FC = () => {
       </section>
 
       {/* Key Geological and Scientific Features */}
-      <section className="rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 space-y-4">
-        <h3 className="text-xl font-bold text-slate-100 font-mono">
+      <section className="hud-card rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 space-y-4 relative">
+        <div className="hud-corner-tl" />
+        <div className="hud-corner-br" />
+
+        <h3 className="text-xl font-bold text-white font-outfit">
           Distinguishing Geological Features
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {planet.keyFeatures.map((feat, i) => (
             <div key={i} className="p-4 rounded-xl bg-space-950 border border-slate-800/80 flex items-start gap-3">
-              <span className="w-2 h-2 rounded-full bg-gold-400 mt-2 flex-shrink-0" />
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{feat}</p>
+              <span className="w-2 h-2 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">{feat}</p>
             </div>
           ))}
         </div>
@@ -239,20 +250,20 @@ export const PlanetDetailPage: React.FC = () => {
       {/* Related Space Missions */}
       {relatedMissions.length > 0 && (
         <section className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-100 font-mono flex items-center gap-2">
-            <Radio className="w-5 h-5 text-gold-400" />
+          <h3 className="text-xl font-bold text-white font-outfit flex items-center gap-2">
+            <Radio className="w-5 h-5 text-cyan-400" />
             Exploration Missions To {planet.name}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {relatedMissions.map((m) => (
-              <div key={m.id} className="p-5 rounded-xl bg-space-900 border border-slate-800 flex items-center justify-between">
+              <div key={m.id} className="p-5 rounded-2xl bg-space-900 border border-slate-800 flex items-center justify-between">
                 <div>
-                  <h4 className="text-base font-bold text-slate-100 font-mono">{m.name}</h4>
+                  <h4 className="text-base font-bold text-white font-mono">{m.name}</h4>
                   <span className="text-xs font-mono text-slate-400">{m.agency} • Launch: {m.launchDate}</span>
                 </div>
                 <Link
                   to={`/missions?id=${m.id}`}
-                  className="px-3 py-1.5 rounded-lg bg-space-800 hover:bg-space-750 text-gold-400 text-xs font-mono border border-gold-500/30"
+                  className="px-3.5 py-1.5 rounded-xl bg-space-850 hover:bg-cyan-400 hover:text-space-950 text-cyan-300 text-xs font-mono border border-cyan-500/30 transition-all font-semibold"
                 >
                   View Mission
                 </Link>
@@ -263,7 +274,7 @@ export const PlanetDetailPage: React.FC = () => {
       )}
 
       {/* Citation and Authority */}
-      <div className="p-4 rounded-xl bg-space-950 border border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
+      <div className="p-4 rounded-xl bg-space-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-slate-400">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
           <span>Scientific Reference: {planet.officialSource}</span>
@@ -272,9 +283,9 @@ export const PlanetDetailPage: React.FC = () => {
           href={planet.officialSourceUrl}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-1 text-gold-400 hover:underline"
+          className="flex items-center gap-1.5 text-cyan-400 hover:underline"
         >
-          <span>NASA Portal</span>
+          <span>NASA Official Portal</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>

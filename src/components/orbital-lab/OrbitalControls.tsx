@@ -43,17 +43,19 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
       
       {/* Educational Presets */}
       <div>
-        <label className="text-xs font-mono uppercase text-gold-400 font-semibold tracking-wider flex items-center gap-1.5 mb-3">
-          <Sparkles className="w-3.5 h-3.5" /> Physics Educational Scenarios
+        <label className="text-xs font-mono uppercase text-cyan-400 font-semibold tracking-wider flex items-center gap-1.5 mb-3">
+          <Sparkles className="w-3.5 h-3.5" /> Physics Orbital Scenarios
         </label>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2" role="tablist">
           {ORBITAL_PRESETS.map((p) => (
             <button
               key={p.id}
+              role="tab"
+              aria-selected={activePresetId === p.id}
               onClick={() => onApplyPreset(p)}
               className={`p-3 rounded-xl border text-left transition-all font-mono ${
                 activePresetId === p.id
-                  ? 'bg-gold-500/10 border-gold-500 text-gold-400 shadow-md'
+                  ? 'bg-space-850 border-cyan-400 text-cyan-300 shadow-md font-bold'
                   : 'bg-space-950 border-slate-800 text-slate-300 hover:border-slate-700'
               }`}
             >
@@ -71,7 +73,7 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
         <div>
           <div className="flex justify-between text-xs font-mono mb-1.5">
             <span className="text-slate-400">Central Body Mass (M)</span>
-            <span className="text-gold-400 font-semibold">{centralMass} × 10²⁴ kg</span>
+            <span className="text-cyan-400 font-semibold">{centralMass} × 10²⁴ kg</span>
           </div>
           <input
             type="range"
@@ -80,7 +82,8 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
             step="5"
             value={centralMass}
             onChange={(e) => onMassChange(Number(e.target.value))}
-            className="w-full accent-gold-500 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            className="w-full accent-cyan-400 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            aria-label="Central Body Mass"
           />
         </div>
 
@@ -97,7 +100,8 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
             step="5"
             value={radius}
             onChange={(e) => onRadiusChange(Number(e.target.value))}
-            className="w-full accent-cyan-500 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            className="w-full accent-cyan-400 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            aria-label="Initial Radius"
           />
         </div>
 
@@ -114,7 +118,8 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
             step="0.5"
             value={velocity}
             onChange={(e) => onVelocityChange(Number(e.target.value))}
-            className="w-full accent-emerald-500 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            className="w-full accent-emerald-400 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            aria-label="Orbital Speed"
           />
         </div>
 
@@ -131,7 +136,8 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
             step="2"
             value={angleDeg}
             onChange={(e) => onAngleChange(Number(e.target.value))}
-            className="w-full accent-purple-500 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            className="w-full accent-purple-400 bg-space-850 h-1.5 rounded-lg cursor-pointer"
+            aria-label="Velocity Vector Direction"
           />
         </div>
       </div>
@@ -143,8 +149,9 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-mono font-bold transition-all shadow-md ${
             isPaused
               ? 'bg-amber-500 text-space-950 hover:bg-amber-400'
-              : 'bg-gold-500 text-space-950 hover:bg-gold-400'
+              : 'bg-cyan-400 text-space-950 hover:bg-cyan-300 shadow-[0_0_15px_rgba(0,242,255,0.3)]'
           }`}
+          aria-label={isPaused ? 'Resume Integrator' : 'Pause Integrator'}
         >
           {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
           <span>{isPaused ? 'Resume Integrator' : 'Pause'}</span>
@@ -152,8 +159,9 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
 
         <button
           onClick={onReset}
-          className="p-2.5 rounded-xl bg-space-950 hover:bg-space-850 text-slate-400 hover:text-slate-200 border border-slate-800 transition-colors"
+          className="p-2.5 rounded-xl bg-space-950 hover:bg-space-850 text-slate-400 hover:text-white border border-slate-800 transition-colors"
           title="Reset Satellite State"
+          aria-label="Reset Satellite State"
         >
           <RotateCcw className="w-4 h-4" />
         </button>
@@ -164,7 +172,8 @@ export const OrbitalControls: React.FC<OrbitalControlsProps> = ({
             <button
               key={s}
               onClick={() => onSpeedChange(s)}
-              className={`px-2.5 py-1 rounded-lg ${simSpeed === s ? 'bg-gold-500 text-space-950 font-bold' : 'text-slate-400 hover:text-slate-200'}`}
+              className={`px-2.5 py-1 rounded-lg ${simSpeed === s ? 'bg-cyan-400 text-space-950 font-bold' : 'text-slate-400 hover:text-white'}`}
+              aria-label={`${s}x simulation speed`}
             >
               {s}×
             </button>

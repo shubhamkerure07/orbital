@@ -37,7 +37,7 @@ const KatexFormula: React.FC<{ latex: string }> = ({ latex }) => {
 
   return (
     <div
-      className="katex-rendered text-holo-cyan overflow-x-auto py-2 text-center text-sm sm:text-base select-all"
+      className="katex-rendered text-cyan-400 overflow-x-auto py-2 text-center text-sm sm:text-base select-all"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -233,15 +233,15 @@ export const IntelligencePage: React.FC = () => {
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-space-800 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-holo-cyan animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <Badge variant="cyan">ORBITAL SCIENTIFIC INTELLIGENCE</Badge>
             <Badge variant="gold">PEER-REVIEWED ASTROPHYSICS</Badge>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-3">
-            <Terminal className="w-8 h-8 text-holo-cyan" />
+            <Terminal className="w-8 h-8 text-cyan-400" />
             Scientific Intelligence & Astrodynamics Knowledgebase
           </h1>
           <p className="text-slate-400 text-sm mt-1 max-w-3xl">
@@ -250,13 +250,13 @@ export const IntelligencePage: React.FC = () => {
         </div>
 
         {/* Global Catalog Count */}
-        <div className="hud-card p-3 rounded-lg border border-holo-cyan/30 flex items-center gap-3 bg-space-900/80">
-          <div className="w-8 h-8 rounded-full bg-holo-cyan/10 border border-holo-cyan/40 flex items-center justify-center text-holo-cyan">
+        <div className="hud-card p-3 rounded-lg border border-cyan-400/30 flex items-center gap-3 bg-space-900/80">
+          <div className="w-8 h-8 rounded-full bg-cyan-400/10 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">INTELLIGENCE REPOSITORY</div>
-            <div className="text-xs font-mono font-bold text-holo-cyan">6 Core Disciplines Indexed</div>
+            <div className="text-xs font-mono font-bold text-cyan-400">6 Core Disciplines Indexed</div>
           </div>
         </div>
       </div>
@@ -268,8 +268,8 @@ export const IntelligencePage: React.FC = () => {
           value="Hohmann & Oberth"
           unit="Validated Solvers"
           subtext="Symplectic Equations"
-          accentColor="border-holo-cyan/40"
-          icon={<Orbit className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/40"
+          icon={<Orbit className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="Relativity Metrics"
@@ -302,12 +302,12 @@ export const IntelligencePage: React.FC = () => {
         
         {/* Left Topics List (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="hud-card p-4 rounded-xl border border-slate-800 bg-space-900/60 space-y-3">
+          <div className="hud-card p-4 rounded-xl border border-space-800 bg-space-900/60 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Scientific Treatises
               </span>
-              <span className="text-[11px] font-mono text-holo-cyan">
+              <span className="text-[11px] font-mono text-cyan-400">
                 {filteredTopics.length} Documents
               </span>
             </div>
@@ -320,7 +320,7 @@ export const IntelligencePage: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search formulas, principles (e.g. Oberth, L2)..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-slate-200"
+                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-space-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-slate-200"
               />
             </div>
 
@@ -332,8 +332,8 @@ export const IntelligencePage: React.FC = () => {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-2 py-0.5 rounded text-[10px] font-mono transition-colors ${
                     selectedCategory === cat
-                      ? 'bg-holo-cyan text-space-950 font-bold'
-                      : 'bg-space-950 text-slate-400 hover:text-white border border-slate-800'
+                      ? 'bg-cyan-400 text-space-950 font-bold'
+                      : 'bg-space-950 text-slate-400 hover:text-white border border-space-800'
                   }`}
                 >
                   {cat.toUpperCase()}
@@ -352,15 +352,15 @@ export const IntelligencePage: React.FC = () => {
                   onClick={() => setSelectedTopic(topic)}
                   className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-holo-cyan/10 border-holo-cyan shadow-[0_0_15px_rgba(0,242,255,0.2)]'
-                      : 'bg-space-900/50 border-slate-800/80 hover:border-slate-700 hover:bg-space-900'
+                      ? 'bg-cyan-400/10 border-cyan-400 shadow-[0_0_15px_rgba(0,242,255,0.2)]'
+                      : 'bg-space-900/50 border-space-800/80 hover:border-slate-700 hover:bg-space-900'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-outfit font-bold text-white">
                       {topic.title}
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-space-950 text-holo-cyan border border-holo-cyan/30">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-space-950 text-cyan-400 border border-cyan-400/30">
                       {topic.category}
                     </span>
                   </div>
@@ -369,9 +369,9 @@ export const IntelligencePage: React.FC = () => {
                     {topic.summary}
                   </p>
 
-                  <div className="mt-2 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <div className="mt-2 pt-2 border-t border-space-800/60 flex items-center justify-between text-[10px] font-mono text-slate-400">
                     <span>{topic.coreFormulas.length} Core Formulation(s)</span>
-                    <span className="text-holo-cyan font-semibold">Inspect Treatise →</span>
+                    <span className="text-cyan-400 font-semibold">Inspect Treatise →</span>
                   </div>
                 </div>
               );
@@ -383,14 +383,14 @@ export const IntelligencePage: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           
           {/* Main Inspection HUD Card */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/40 bg-space-900/90 relative overflow-hidden">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/40 bg-space-900/90 relative overflow-hidden">
             <div className="hud-corner-tl" />
             <div className="hud-corner-tr" />
             <div className="hud-corner-bl" />
             <div className="hud-corner-br" />
 
-            <div className="border-b border-slate-800 pb-4 mb-5">
-              <div className="text-[10px] font-mono tracking-widest text-holo-cyan uppercase flex items-center gap-1.5">
+            <div className="border-b border-space-800 pb-4 mb-5">
+              <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5" />
                 PEER-REVIEWED SCIENTIFIC TREATISE: {selectedTopic.category.toUpperCase()}
               </div>
@@ -404,7 +404,7 @@ export const IntelligencePage: React.FC = () => {
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Executive Abstract & Theoretical Foundation
               </h4>
-              <p className="text-sm text-slate-300 leading-relaxed font-sans bg-space-950/60 p-4 rounded-xl border border-slate-800">
+              <p className="text-sm text-slate-300 leading-relaxed font-sans bg-space-950/60 p-4 rounded-xl border border-space-800">
                 {selectedTopic.summary}
               </p>
             </div>
@@ -412,20 +412,20 @@ export const IntelligencePage: React.FC = () => {
             {/* Core Mathematical Formulations */}
             <div className="space-y-3 mb-6">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-holo-cyan" />
+                <Terminal className="w-3.5 h-3.5 text-cyan-400" />
                 Governing Physical Equations & Mathematical Proofs
               </h4>
 
               <div className="space-y-3">
                 {selectedTopic.coreFormulas.map((formula, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-space-950 border border-slate-800 space-y-2">
+                  <div key={idx} className="p-4 rounded-xl bg-space-950 border border-space-800 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold text-holo-cyan">
+                      <span className="text-xs font-mono font-bold text-cyan-400">
                         {formula.name}
                       </span>
                       <button
                         onClick={() => handleCopyFormula(formula.latex)}
-                        className="flex items-center gap-1 text-[10px] font-mono text-slate-400 hover:text-white px-2 py-0.5 rounded bg-space-900 border border-slate-800 transition-colors"
+                        className="flex items-center gap-1 text-[10px] font-mono text-slate-400 hover:text-white px-2 py-0.5 rounded bg-space-900 border border-space-800 transition-colors"
                         title="Copy LaTeX formula"
                       >
                         {copiedFormula === formula.latex ? (
@@ -443,7 +443,7 @@ export const IntelligencePage: React.FC = () => {
                     </div>
 
                     {/* Formula Display Box with KaTeX typography */}
-                    <div className="p-3 rounded-lg bg-[#020205] border border-holo-cyan/20 overflow-x-auto text-center py-3">
+                    <div className="p-3 rounded-lg bg-[#020205] border border-cyan-400/20 overflow-x-auto text-center py-3">
                       <KatexFormula latex={formula.latex} />
                     </div>
 
@@ -463,7 +463,7 @@ export const IntelligencePage: React.FC = () => {
               <ul className="space-y-2">
                 {selectedTopic.keyPrinciples.map((principle, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-xs font-sans text-slate-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-holo-cyan mt-1.5 shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 shrink-0" />
                     <span>{principle}</span>
                   </li>
                 ))}
@@ -471,13 +471,13 @@ export const IntelligencePage: React.FC = () => {
             </div>
 
             {/* Verified Academic Citations */}
-            <div className="pt-4 border-t border-slate-800 space-y-2">
+            <div className="pt-4 border-t border-space-800 space-y-2">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
                 Primary Scientific Literature Citations
               </h4>
               <div className="space-y-1.5">
                 {selectedTopic.citations.map((cite, idx) => (
-                  <div key={idx} className="flex items-center justify-between text-xs font-mono p-2 rounded bg-space-950/60 border border-slate-800/80">
+                  <div key={idx} className="flex items-center justify-between text-xs font-mono p-2 rounded bg-space-950/60 border border-space-800/80">
                     <div>
                       <span className="text-white font-semibold">{cite.author}</span> ({cite.year}). <span className="text-slate-300 italic">"{cite.title}"</span>
                     </div>
@@ -485,7 +485,7 @@ export const IntelligencePage: React.FC = () => {
                       href={cite.doiOrUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-holo-cyan hover:underline flex items-center gap-1 font-bold ml-2 shrink-0"
+                      className="text-cyan-400 hover:underline flex items-center gap-1 font-bold ml-2 shrink-0"
                     >
                       Source <ExternalLink className="w-3 h-3" />
                     </a>

@@ -4,123 +4,125 @@
 
 @layer base {
   body {
-    @apply bg-space-950 text-slate-100 font-sans selection:bg-holo-cyan selection:text-space-950;
+    @apply bg-space-950 text-slate-100 font-sans selection:bg-cyan-400 selection:text-space-950;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Accessible focus indicators */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #030712, 0 0 0 4px #00f2ff;
   }
 }
 
-/* Custom Mission Control scrollbar */
+/* Custom Mission Control Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020205;
+  background: #030712;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 242, 255, 0.2);
-  border-radius: 2px;
+  background: #1e293b;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f2ff;
-  box-shadow: 0 0 10px #00f2ff;
+  background: #334155;
 }
 
-/* Cosmic Dust Drifting Particle Layer */
+/* Restrained Cosmic Dust Layer */
 .cosmic-dust {
   background-image: 
-    radial-gradient(1px 1px at 10% 20%, #ffffff, transparent),
-    radial-gradient(1px 1px at 30% 50%, rgba(0, 242, 255, 0.8), transparent),
-    radial-gradient(1.5px 1.5px at 70% 30%, #ffffff, transparent),
-    radial-gradient(1px 1px at 40% 80%, rgba(247, 204, 127, 0.7), transparent),
-    radial-gradient(1px 1px at 85% 60%, #ffffff, transparent),
-    radial-gradient(1.5px 1.5px at 15% 90%, rgba(0, 242, 255, 0.6), transparent);
+    radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 45% 65%, rgba(0, 242, 255, 0.3), transparent),
+    radial-gradient(1.5px 1.5px at 75% 35%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 85% 80%, rgba(245, 158, 11, 0.25), transparent);
   background-repeat: repeat;
-  background-size: 600px 600px;
+  background-size: 500px 500px;
 }
 
-/* Tactical HUD Corner Brackets */
-.hud-corner-container {
-  position: relative;
-}
-
-.hud-corner-container::before,
-.hud-corner-container::after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
-.hud-corner-tl {
-  border-top: 1.5px solid rgba(0, 242, 255, 0.6);
-  border-left: 1.5px solid rgba(0, 242, 255, 0.6);
-}
-
-.hud-corner-tr {
-  border-top: 1.5px solid rgba(0, 242, 255, 0.6);
-  border-right: 1.5px solid rgba(0, 242, 255, 0.6);
-}
-
-.hud-corner-bl {
-  border-bottom: 1.5px solid rgba(0, 242, 255, 0.6);
-  border-left: 1.5px solid rgba(0, 242, 255, 0.6);
-}
-
-.hud-corner-br {
-  border-bottom: 1.5px solid rgba(0, 242, 255, 0.6);
-  border-right: 1.5px solid rgba(0, 242, 255, 0.6);
-}
-
-/* Mission Control HUD Card */
+/* Subtle Technical HUD Card */
 .hud-card {
   position: relative;
-  background: rgba(6, 8, 16, 0.85);
-  backdrop-filter: blur(16px);
+  background: rgba(7, 12, 27, 0.85);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hud-card:hover {
-  border-color: rgba(0, 242, 255, 0.4);
-  box-shadow: 0 0 25px rgba(0, 242, 255, 0.12);
+  border-color: rgba(0, 242, 255, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 255, 0.08);
 }
 
-/* Glow Utilities */
+/* Refined Technical Corner Brackets */
+.hud-corner-tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid rgba(0, 242, 255, 0.5);
+  border-left: 1.5px solid rgba(0, 242, 255, 0.5);
+  pointer-events: none;
+}
+
+.hud-corner-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid rgba(0, 242, 255, 0.5);
+  border-right: 1.5px solid rgba(0, 242, 255, 0.5);
+  pointer-events: none;
+}
+
+.hud-corner-bl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1.5px solid rgba(0, 242, 255, 0.5);
+  border-left: 1.5px solid rgba(0, 242, 255, 0.5);
+  pointer-events: none;
+}
+
+.hud-corner-br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1.5px solid rgba(0, 242, 255, 0.5);
+  border-right: 1.5px solid rgba(0, 242, 255, 0.5);
+  pointer-events: none;
+}
+
+/* Restrained Text Glow */
 .text-glow-cyan {
-  text-shadow: 0 0 8px rgba(0, 242, 255, 0.8), 0 0 20px rgba(0, 242, 255, 0.4);
+  text-shadow: 0 0 12px rgba(0, 242, 255, 0.5);
 }
 
-.text-glow-gold {
-  text-shadow: 0 0 8px rgba(247, 204, 127, 0.8), 0 0 20px rgba(247, 204, 127, 0.4);
-}
-
-.box-glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 242, 255, 0.3), inset 0 0 20px rgba(0, 242, 255, 0.1);
-}
-
-/* Animated Border Flow */
-@keyframes border-flow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.animated-border {
-  position: relative;
-  background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.4), transparent);
-  background-size: 200% 100%;
-  animation: border-flow 4s ease infinite;
-}
-
-/* NASA Mission Control Gradient Header */
+/* NASA Mission Control Clean Gradient Header */
 .nasa-gradient-text {
-  background: linear-gradient(135deg, #00f2ff 0%, #0062ff 50%, #fc3d21 100%);
+  background: linear-gradient(135deg, #00f2ff 0%, #38bdf8 50%, #818cf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -74,15 +74,15 @@ export const SpaceWeatherPage: React.FC = () => {
           value={weather.solarWind.speedKms.toString()}
           unit="km/s"
           subtext="DSCOVR Satellite"
-          accentColor="border-holo-cyan/40"
-          icon={<Zap className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/30"
+          icon={<Zap className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="Proton Density"
           value={weather.solarWind.densityPcm3.toString()}
           unit="protons/cm³"
           subtext="Nominal plasma flow"
-          accentColor="border-emerald-400/40"
+          accentColor="border-emerald-400/30"
           icon={<Compass className="w-4 h-4 text-emerald-400" />}
         />
         <MetricCard
@@ -90,7 +90,7 @@ export const SpaceWeatherPage: React.FC = () => {
           value={`${weather.solarWind.imfBz_nT} nT`}
           unit="Southward coupling"
           subtext="Magnetic reconnection"
-          accentColor="border-amber-400/40"
+          accentColor="border-amber-400/30"
           icon={<Navigation className="w-4 h-4 text-amber-400" />}
         />
         <MetricCard
@@ -98,8 +98,8 @@ export const SpaceWeatherPage: React.FC = () => {
           value={weather.satelliteRadioConditions.radioBlackoutScale}
           unit="NOAA R-Scale"
           subtext="HF Comm Nominal"
-          accentColor="border-holo-cyan/40"
-          icon={<Radio className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/30"
+          icon={<Radio className="w-4 h-4 text-cyan-400" />}
         />
       </div>
 
@@ -110,14 +110,14 @@ export const SpaceWeatherPage: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           
           {/* Kp Gauge HUD Card */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/40 bg-space-900/90 relative overflow-hidden">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/40 bg-space-900/90 relative overflow-hidden">
             <div className="hud-corner-tl" />
             <div className="hud-corner-tr" />
             <div className="hud-corner-bl" />
             <div className="hud-corner-br" />
 
             <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-holo-cyan flex items-center gap-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
                 <Compass className="w-4 h-4" />
                 Planetary Kp Index (Geomagnetic Activity)
               </span>
@@ -134,7 +134,7 @@ export const SpaceWeatherPage: React.FC = () => {
                   <div className="text-xs font-mono text-slate-400">CURRENT PLANETARY KP VALUE</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs font-mono text-holo-cyan font-bold">24h Max: {weather.geomagneticIndex.kpMax24h}</div>
+                  <div className="text-xs font-mono text-cyan-400 font-bold">24h Max: {weather.geomagneticIndex.kpMax24h}</div>
                   <div className="text-[10px] font-mono text-slate-400">Baseline Ground Magnetometers</div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export const SpaceWeatherPage: React.FC = () => {
             <div className="mt-6 pt-5 border-t border-slate-800 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold uppercase text-slate-300 flex items-center gap-1.5">
-                  <Globe2 className="w-3.5 h-3.5 text-holo-cyan" />
+                  <Globe2 className="w-3.5 h-3.5 text-cyan-400" />
                   Aurora Visibility Latitude Calculator
                 </span>
                 <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded ${
@@ -188,7 +188,7 @@ export const SpaceWeatherPage: React.FC = () => {
               <div className="space-y-1">
                 <div className="flex justify-between text-xs font-mono text-slate-400">
                   <span>Your Observer Latitude:</span>
-                  <span className="text-holo-cyan font-bold">{userLatitude}° N/S</span>
+                  <span className="text-cyan-400 font-bold">{userLatitude}° N/S</span>
                 </div>
                 <input
                   type="range"
@@ -196,7 +196,7 @@ export const SpaceWeatherPage: React.FC = () => {
                   max="80"
                   value={userLatitude}
                   onChange={(e) => setUserLatitude(Number(e.target.value))}
-                  className="w-full accent-holo-cyan bg-space-950 h-1.5 rounded cursor-pointer"
+                  className="w-full accent-cyan-400 bg-space-950 h-1.5 rounded cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] font-mono text-slate-400">
                   <span>20° (Tropical)</span>
@@ -234,7 +234,7 @@ export const SpaceWeatherPage: React.FC = () => {
 
               <div className="p-3 rounded-lg bg-space-950 border border-slate-800/80">
                 <div className="text-[10px] text-slate-400 uppercase">GNSS / GPS Signal Scintillation</div>
-                <div className="text-holo-cyan font-bold mt-0.5">UNSTRESSED (Nominal)</div>
+                <div className="text-cyan-400 font-bold mt-0.5">UNSTRESSED (Nominal)</div>
                 <div className="text-[10px] text-slate-400 mt-1">Total Electron Content (TEC) gradients stable across mid-latitudes.</div>
               </div>
 
@@ -258,7 +258,7 @@ export const SpaceWeatherPage: React.FC = () => {
                 <Flame className="w-4 h-4 text-amber-400" />
                 Solar Flare Detection Telemetry (GOES-16/18 X-Ray Sensor)
               </span>
-              <span className="text-[10px] font-mono text-holo-cyan">REAL-TIME FLUX MONITOR</span>
+              <span className="text-[10px] font-mono text-cyan-400">REAL-TIME FLUX MONITOR</span>
             </div>
 
             <div className="space-y-3">
@@ -291,7 +291,7 @@ export const SpaceWeatherPage: React.FC = () => {
 
                   <div className="text-left sm:text-right font-mono">
                     <div className="text-[10px] text-slate-400 uppercase">X-Ray Peak Flux</div>
-                    <div className="text-xs font-bold text-holo-cyan">{flare.fluxPeakWm2}</div>
+                    <div className="text-xs font-bold text-cyan-400">{flare.fluxPeakWm2}</div>
                   </div>
                 </div>
               ))}
@@ -299,10 +299,10 @@ export const SpaceWeatherPage: React.FC = () => {
           </div>
 
           {/* Coronal Mass Ejection Shockwave Arrival Window */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/30 bg-space-900/80 space-y-4">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/30 bg-space-900/80 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
-                <Activity className="w-4 h-4 text-holo-cyan" />
+                <Activity className="w-4 h-4 text-cyan-400" />
                 Coronal Mass Ejection (CME) Transit Predictor (WSA-Enlil Model)
               </span>
               <span className="text-[10px] font-mono text-amber-400">NASA DONKI MODEL</span>
@@ -312,10 +312,10 @@ export const SpaceWeatherPage: React.FC = () => {
               <div key={cme.id} className="p-4 rounded-xl bg-space-950 border border-slate-800 space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="text-sm font-outfit font-bold text-white flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-holo-cyan animate-ping" />
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
                     {cme.id} (Ejected with {cme.associatedFlare})
                   </div>
-                  <div className="text-xs font-mono text-holo-cyan font-bold">
+                  <div className="text-xs font-mono text-cyan-400 font-bold">
                     Shock Velocity: {cme.speedKms} km/s
                   </div>
                 </div>
@@ -331,7 +331,7 @@ export const SpaceWeatherPage: React.FC = () => {
                   </div>
                   <div className="bg-space-900 p-2 rounded border border-slate-800 col-span-2 sm:col-span-1">
                     <div className="text-[9px] text-slate-400 uppercase">Expected Density Shock</div>
-                    <div className="text-holo-cyan font-bold">Halo Glancing Blow</div>
+                    <div className="text-cyan-400 font-bold">Halo Glancing Blow</div>
                   </div>
                 </div>
 
@@ -345,7 +345,7 @@ export const SpaceWeatherPage: React.FC = () => {
           {/* Historical Superstorm Benchmarks */}
           <div className="hud-card p-6 rounded-2xl border border-slate-800 bg-space-900/60 space-y-4">
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-holo-cyan" />
+              <Clock className="w-4 h-4 text-cyan-400" />
               Historical Superstorm Benchmark Database
             </h3>
 

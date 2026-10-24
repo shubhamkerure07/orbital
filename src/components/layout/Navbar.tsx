@@ -20,21 +20,24 @@ import {
   Globe2,
   Network,
   Terminal,
-  Layers
+  Layers,
+  Sparkles
 } from 'lucide-react';
 import { GlobalSearchModal } from './GlobalSearchModal';
+
+interface NavItem {
+  to: string;
+  label: string;
+  desc: string;
+  icon: React.ReactNode;
+  badge?: string;
+}
 
 interface NavGroup {
   label: string;
   icon: React.ReactNode;
   to?: string;
-  items?: {
-    to: string;
-    label: string;
-    desc: string;
-    icon: React.ReactNode;
-    badge?: string;
-  }[];
+  items?: NavItem[];
 }
 
 export const Navbar: React.FC = () => {
@@ -81,48 +84,51 @@ export const Navbar: React.FC = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200);
+    }, 180);
   };
 
   const navGroups: NavGroup[] = [
     { 
       to: '/explore', 
-      label: 'Explore', 
-      icon: <Globe className="w-3.5 h-3.5" /> 
+      label: 'Solar System', 
+      icon: <Globe className="w-3.5 h-3.5" />,
+      items: [
+        { to: '/explore', label: '3D Planetarium', desc: 'Real-time planetary ephemeris, axial tilts & orbits', icon: <Globe className="w-4 h-4 text-cyan-400" />, badge: '3D' },
+        { to: '/destinations', label: 'Planetary Targets', desc: 'Moons, dwarf worlds & deep exploration targets', icon: <Compass className="w-4 h-4 text-cyan-400" /> }
+      ]
     },
     { 
       to: '/missions', 
-      label: 'Missions', 
+      label: 'Flight Ops', 
       icon: <Radio className="w-3.5 h-3.5" />,
       items: [
-        { to: '/missions', label: 'Active Manifest', desc: 'NASA, ESA, ISRO flight ops', icon: <Radio className="w-3.5 h-3.5 text-holo-cyan" /> },
-        { to: '/rockets', label: 'Launch Vehicles', desc: 'Saturn V, Falcon 9, Starship', icon: <Rocket className="w-3.5 h-3.5 text-holo-cyan" /> },
-        { to: '/destinations', label: 'Planetary Targets', desc: 'Planets, dwarf worlds & moons', icon: <Compass className="w-3.5 h-3.5 text-holo-cyan" /> }
+        { to: '/missions', label: 'Mission Manifest', desc: 'Active & historic NASA, ESA, ISRO expeditions', icon: <Radio className="w-4 h-4 text-amber-400" /> },
+        { to: '/rockets', label: 'Launch Vehicles', desc: 'Saturn V, Falcon 9, Starship & staging simulator', icon: <Rocket className="w-4 h-4 text-emerald-400" /> }
       ]
     },
     { 
-      label: 'Observatory', 
+      label: 'Observatories', 
       icon: <Crosshair className="w-3.5 h-3.5" />,
       items: [
-        { to: '/observatory/neo', label: 'NEO & Asteroids', desc: 'Planetary defense & close approaches', icon: <Crosshair className="w-3.5 h-3.5 text-holo-cyan" />, badge: 'CNEOS' },
-        { to: '/observatory/space-weather', label: 'Space Weather', desc: 'Solar wind, Kp index & aurora forecast', icon: <Sun className="w-3.5 h-3.5 text-amber-400" />, badge: 'NOAA' }
+        { to: '/observatory/neo', label: 'NEO & Asteroids', desc: 'Planetary defense, Apophis radar & close approaches', icon: <Crosshair className="w-4 h-4 text-cyan-400" />, badge: 'CNEOS' },
+        { to: '/observatory/space-weather', label: 'Space Weather', desc: 'Real-time solar wind, Kp index & aurora forecast', icon: <Sun className="w-4 h-4 text-amber-400" />, badge: 'NOAA' },
+        { to: '/discover/exoplanets', label: 'Exoplanet Laboratory', desc: 'Habitable worlds & transit spectroscopy', icon: <Globe2 className="w-4 h-4 text-emerald-400" />, badge: 'JWST' }
       ]
     },
     { 
-      label: 'Simulate', 
+      label: 'Simulators', 
       icon: <Cpu className="w-3.5 h-3.5" />,
       items: [
-        { to: '/orbital-lab', label: 'Orbital Mechanics Lab', desc: 'Symplectic 2D n-body gravitational sandbox', icon: <Cpu className="w-3.5 h-3.5 text-holo-cyan" /> },
-        { to: '/simulate/mission-designer', label: 'Mission Designer', desc: 'Hohmann transfer & Tsiolkovsky delta-V planner', icon: <Orbit className="w-3.5 h-3.5 text-emerald-400" />, badge: 'NEW' }
+        { to: '/orbital-lab', label: 'Orbital Mechanics Lab', desc: 'Symplectic 2D n-body gravitational sandbox', icon: <Cpu className="w-4 h-4 text-cyan-400" /> },
+        { to: '/simulate/mission-designer', label: 'Mission Designer', desc: 'Hohmann transfer & Tsiolkovsky delta-V staging planner', icon: <Orbit className="w-4 h-4 text-emerald-400" />, badge: 'PLAN' }
       ]
     },
     { 
-      label: 'Discover', 
+      label: 'Discoveries', 
       icon: <BookOpen className="w-3.5 h-3.5" />,
       items: [
-        { to: '/discover', label: 'APOD & Breakthroughs', desc: 'NASA APOD and astrophysical discoveries', icon: <BookOpen className="w-3.5 h-3.5 text-holo-cyan" /> },
-        { to: '/discover/exoplanets', label: 'Exoplanet Laboratory', desc: 'Habitable worlds & transit spectroscopy', icon: <Globe2 className="w-3.5 h-3.5 text-emerald-400" />, badge: 'JWST' },
-        { to: '/discover/knowledge-graph', label: 'Universe Knowledge Graph', desc: 'Interactive cosmic ontology & force network', icon: <Network className="w-3.5 h-3.5 text-purple-400" />, badge: 'GRAPH' }
+        { to: '/discover', label: 'APOD & Breakthroughs', desc: 'NASA APOD and astrophysical discoveries', icon: <BookOpen className="w-4 h-4 text-cyan-400" /> },
+        { to: '/discover/knowledge-graph', label: 'Universe Knowledge Graph', desc: 'Interactive cosmic ontology & force network', icon: <Network className="w-4 h-4 text-purple-400" />, badge: 'GRAPH' }
       ]
     },
     { 
@@ -140,24 +146,24 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Top Mission Control Telemetry Ribbon */}
-      <div className="w-full bg-[#020205] border-b border-white/5 py-1 px-4 sm:px-6 lg:px-8 flex items-center justify-between text-[10px] font-mono tracking-wider text-slate-400 select-none">
+      <div className="w-full bg-[#02050e] border-b border-white/5 py-1 px-4 sm:px-6 lg:px-8 flex items-center justify-between text-[10px] font-mono tracking-wider text-slate-400 select-none">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 text-holo-cyan">
-            <span className="w-1.5 h-1.5 rounded-full bg-holo-cyan animate-pulse" />
-            <span className="font-bold">NASA MC-SYS: NOMINAL</span>
+          <div className="flex items-center gap-1.5 text-cyan-400 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span>NASA MC-SYS: NOMINAL</span>
           </div>
-          <span className="hidden md:inline text-slate-400">|</span>
-          <div className="hidden md:flex items-center gap-1 text-slate-400">
+          <span className="hidden md:inline text-slate-600">|</span>
+          <div className="hidden md:flex items-center gap-1.5 text-slate-400">
             <Wifi className="w-2.5 h-2.5 text-emerald-400" />
             <span>DEEP SPACE DSN-84: LINK LOCKED</span>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-slate-400 hidden sm:inline">COORDINATES: 28°35′N 80°39′W</span>
+          <span className="text-slate-400 hidden sm:inline">KENNEDY SPACE CENTER: 28°35′N 80°39′W</span>
           <div className="flex items-center gap-1.5 text-slate-200">
-            <Activity className="w-3 h-3 text-gold-400 animate-pulse" />
-            <span className="text-holo-cyan font-bold">{clockUtc}</span>
+            <Activity className="w-3 h-3 text-amber-400" />
+            <span className="text-cyan-400 font-bold tracking-widest">{clockUtc}</span>
           </div>
         </div>
       </div>
@@ -166,24 +172,24 @@ export const Navbar: React.FC = () => {
       <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-space-950/90 border-b border-slate-800/80 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           
-          {/* Logo with HUD Corner Brackets */}
+          {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-holo-cyan rounded-lg p-1 relative"
+            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg p-1 relative flex-shrink-0"
+            aria-label="Orbital Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-holo-cyan/20 via-space-900 to-space-950 border border-holo-cyan/40 flex items-center justify-center text-holo-cyan group-hover:border-holo-cyan transition-all group-hover:shadow-[0_0_15px_rgba(0,242,255,0.4)] relative overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 via-space-900 to-space-950 border border-cyan-400/40 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 transition-all group-hover:shadow-[0_0_15px_rgba(0,242,255,0.4)] relative overflow-hidden">
               <Orbit className="w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
-              {/* Corner tick */}
-              <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-holo-cyan" />
-              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-holo-cyan" />
+              <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-cyan-400" />
+              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-cyan-400" />
             </div>
 
             <div className="flex flex-col">
-              <span className="font-outfit font-black tracking-[0.2em] text-lg sm:text-xl text-white group-hover:text-holo-cyan transition-colors">
+              <span className="font-outfit font-black tracking-[0.2em] text-lg sm:text-xl text-white group-hover:text-cyan-300 transition-colors">
                 ORBITAL
               </span>
-              <span className="text-[9px] font-mono tracking-widest text-holo-cyan/80 -mt-1 uppercase hidden sm:block">
-                Mission Control v2.0
+              <span className="text-[9px] font-mono tracking-widest text-cyan-400/90 -mt-1 uppercase hidden sm:block">
+                Mission Control v1.2
               </span>
             </div>
           </Link>
@@ -201,85 +207,77 @@ export const Navbar: React.FC = () => {
                   <NavLink
                     key={group.label}
                     to={group.to}
-                    className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 relative group ${
-                      isGroupActive 
-                        ? 'text-holo-cyan bg-holo-cyan/10 border border-holo-cyan/40 shadow-[0_0_12px_rgba(0,242,255,0.2)]' 
-                        : 'text-slate-300 hover:text-white hover:bg-space-850 border border-transparent'
-                    }`}
+                    className={({ isActive }) => `
+                      px-3 py-2 rounded-xl text-xs font-mono font-medium tracking-wide transition-all flex items-center gap-1.5
+                      ${isActive 
+                        ? 'bg-space-850 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(0,242,255,0.1)]' 
+                        : 'text-slate-300 hover:text-white hover:bg-space-900/60'
+                      }
+                    `}
                   >
-                    {isGroupActive && (
-                      <>
-                        <span className="absolute -top-[1px] -left-[1px] w-1.5 h-1.5 border-t border-l border-holo-cyan" />
-                        <span className="absolute -bottom-[1px] -right-[1px] w-1.5 h-1.5 border-b border-r border-holo-cyan" />
-                      </>
-                    )}
-                    <span className={isGroupActive ? 'text-holo-cyan' : 'text-slate-400 group-hover:text-holo-cyan transition-colors'}>
-                      {group.icon}
-                    </span>
+                    {group.icon}
                     <span>{group.label}</span>
                   </NavLink>
                 );
               }
 
-              // Dropdown Group Item
-              const isOpen = activeDropdown === group.label;
-
               return (
                 <div 
-                  key={group.label}
+                  key={group.label} 
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(group.label)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <button
-                    onClick={() => setActiveDropdown(isOpen ? null : group.label)}
-                    className={`px-3 py-1.5 text-xs font-mono font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 relative group ${
-                      isGroupActive || isOpen
-                        ? 'text-holo-cyan bg-holo-cyan/10 border border-holo-cyan/40 shadow-[0_0_12px_rgba(0,242,255,0.2)]' 
-                        : 'text-slate-300 hover:text-white hover:bg-space-850 border border-transparent'
-                    }`}
+                    onClick={() => setActiveDropdown(activeDropdown === group.label ? null : group.label)}
+                    aria-expanded={activeDropdown === group.label}
+                    className={`
+                      px-3 py-2 rounded-xl text-xs font-mono font-medium tracking-wide transition-all flex items-center gap-1.5
+                      ${isGroupActive 
+                        ? 'bg-space-850 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(0,242,255,0.1)]' 
+                        : 'text-slate-300 hover:text-white hover:bg-space-900/60'
+                      }
+                    `}
                   >
-                    <span className={isGroupActive ? 'text-holo-cyan' : 'text-slate-400 group-hover:text-holo-cyan'}>
-                      {group.icon}
-                    </span>
+                    {group.icon}
                     <span>{group.label}</span>
-                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180 text-holo-cyan' : 'text-slate-500'}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === group.label ? 'rotate-180 text-cyan-400' : 'text-slate-500'}`} />
                   </button>
 
                   {/* Dropdown Menu */}
-                  {isOpen && (
-                    <div className="absolute top-full left-0 mt-1.5 w-72 p-2 rounded-xl bg-space-900/98 backdrop-blur-2xl border border-holo-cyan/40 shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-50 animate-in fade-in zoom-in-95 duration-150">
-                      <div className="hud-corner-tl" />
-                      <div className="hud-corner-tr" />
-                      
+                  {activeDropdown === group.label && (
+                    <div 
+                      className="absolute top-full left-0 mt-1.5 w-72 p-2 rounded-2xl bg-space-900/95 backdrop-blur-xl border border-slate-700/80 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150"
+                    >
                       <div className="space-y-1">
                         {group.items?.map((item) => {
-                          const isItemActive = location.pathname === item.to;
+                          const isItemActive = location.pathname === item.to || location.pathname.startsWith(item.to + '/');
                           return (
                             <Link
                               key={item.to}
                               to={item.to}
-                              className={`flex items-start gap-2.5 p-2 rounded-lg transition-colors text-xs font-mono ${
-                                isItemActive 
-                                  ? 'bg-holo-cyan/15 text-white border border-holo-cyan/30' 
-                                  : 'text-slate-300 hover:bg-space-850 hover:text-white'
-                              }`}
+                              className={`
+                                flex items-start gap-3 p-2.5 rounded-xl transition-all group
+                                ${isItemActive ? 'bg-space-800 border border-cyan-500/30' : 'hover:bg-space-850/80'}
+                              `}
                             >
-                              <div className="mt-0.5 p-1 rounded bg-space-950 border border-slate-800">
+                              <div className="p-2 rounded-lg bg-space-950 border border-slate-800 group-hover:border-cyan-500/40 flex-shrink-0 mt-0.5">
                                 {item.icon}
                               </div>
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <span className="font-bold text-white">{item.label}</span>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className={`text-xs font-semibold font-mono ${isItemActive ? 'text-cyan-300' : 'text-slate-200 group-hover:text-cyan-300'}`}>
+                                    {item.label}
+                                  </span>
                                   {item.badge && (
-                                    <span className="px-1 py-0.2 rounded text-[8px] font-mono bg-holo-cyan/20 text-holo-cyan border border-holo-cyan/40 font-bold">
+                                    <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-400/10 text-cyan-400 border border-cyan-400/30">
                                       {item.badge}
                                     </span>
                                   )}
                                 </div>
-                                <div className="text-[10px] text-slate-400 leading-tight mt-0.5">
+                                <p className="text-[11px] text-slate-400 line-clamp-1 font-sans mt-0.5">
                                   {item.desc}
-                                </div>
+                                </p>
                               </div>
                             </Link>
                           );
@@ -292,97 +290,95 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Actions: Search Trigger & Mobile Menu Button */}
+          {/* Right Action Controls: Search & Mobile Menu Button */}
           <div className="flex items-center gap-2.5">
+            
+            {/* Global Search Button */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-space-900 border border-slate-700/80 hover:border-holo-cyan/60 text-slate-300 hover:text-white transition-all text-xs font-mono group hover:shadow-[0_0_15px_rgba(0,242,255,0.15)]"
-              aria-label="Search space database"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-space-900 hover:bg-space-850 text-slate-300 hover:text-white border border-slate-700/80 hover:border-cyan-400/50 transition-all font-mono text-xs shadow-sm group"
+              aria-label="Open Command Search"
+              title="Search database (Ctrl+K)"
             >
-              <Search className="w-3.5 h-3.5 text-holo-cyan group-hover:scale-110 transition-transform" />
-              <span className="hidden sm:inline">Telemetry Search</span>
-              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-space-950 rounded border border-slate-800 text-slate-400 font-mono">
+              <Search className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline text-slate-300">Search</span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-space-950 text-slate-400 border border-slate-800 rounded">
                 ⌘K
               </kbd>
             </button>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-space-900 border border-slate-800 text-slate-300 hover:text-white focus:outline-none"
-              aria-label="Toggle navigation menu"
+              className="lg:hidden p-2 rounded-xl bg-space-900 text-slate-300 hover:text-white border border-slate-700/80 transition-colors"
+              aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5 text-holo-cyan" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-space-900/98 backdrop-blur-2xl border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 max-h-[80vh] overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200">
-            {navGroups.map((group) => {
-              if (!group.items) {
-                const isActive = group.to ? location.pathname === group.to : false;
-                return (
-                  <Link
-                    key={group.label}
-                    to={group.to || '#'}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-mono font-medium transition-colors ${
-                      isActive 
-                        ? 'bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40' 
-                        : 'text-slate-300 hover:bg-space-850 hover:text-white'
-                    }`}
-                  >
-                    <span className={isActive ? 'text-holo-cyan' : 'text-slate-400'}>{group.icon}</span>
-                    {group.label}
-                  </Link>
-                );
-              }
-
-              // Group with children in mobile menu
-              return (
-                <div key={group.label} className="space-y-1 pt-1">
-                  <div className="px-3 py-1 text-[10px] font-mono font-bold text-holo-cyan uppercase tracking-wider flex items-center gap-1.5">
+          <div className="lg:hidden fixed inset-x-0 top-16 bg-space-950/98 backdrop-blur-2xl border-b border-slate-800 p-6 space-y-6 max-h-[calc(100vh-4rem)] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="space-y-6">
+              {navGroups.map((group) => (
+                <div key={group.label} className="space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase text-slate-400 font-bold tracking-wider px-1">
                     {group.icon}
                     <span>{group.label}</span>
                   </div>
-                  <div className="pl-3 space-y-1">
-                    {group.items.map((item) => {
-                      const isActive = location.pathname === item.to;
-                      return (
+
+                  {group.items ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-2">
+                      {group.items.map((item) => (
                         <Link
                           key={item.to}
                           to={item.to}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-colors ${
-                            isActive
-                              ? 'bg-holo-cyan/15 text-holo-cyan border border-holo-cyan/40 font-bold'
-                              : 'text-slate-300 hover:bg-space-850 hover:text-white'
-                          }`}
+                          className="flex items-center gap-3 p-3 rounded-xl bg-space-900 border border-slate-800/80 hover:border-cyan-400/40 text-slate-200"
                         >
-                          <div className="flex items-center gap-2">
-                            <span>{item.icon}</span>
-                            <span>{item.label}</span>
+                          <div className="p-2 rounded-lg bg-space-950 text-cyan-400">
+                            {item.icon}
                           </div>
-                          {item.badge && (
-                            <span className="px-1.5 py-0.2 rounded text-[8px] font-mono bg-holo-cyan/20 text-holo-cyan">
-                              {item.badge}
-                            </span>
-                          )}
+                          <div>
+                            <div className="text-xs font-semibold text-white font-mono">{item.label}</div>
+                            <div className="text-[10px] text-slate-400 font-sans line-clamp-1">{item.desc}</div>
+                          </div>
                         </Link>
-                      );
-                    })}
-                  </div>
+                      ))}
+                    </div>
+                  ) : group.to ? (
+                    <div className="pl-2">
+                      <Link
+                        to={group.to}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center gap-3 p-3 rounded-xl bg-space-900 border border-slate-800/80 hover:border-cyan-400/40 text-slate-200"
+                      >
+                        <div className="p-2 rounded-lg bg-space-950 text-cyan-400">
+                          {group.icon}
+                        </div>
+                        <div className="text-xs font-semibold text-white font-mono">{group.label}</div>
+                      </Link>
+                    </div>
+                  ) : null}
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>ORBITAL Space Operations</span>
+              <span className="text-cyan-400">v1.2.0</span>
+            </div>
           </div>
         )}
       </header>
 
-      {/* Global Search Modal */}
-      <GlobalSearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {/* Global Command Search Modal */}
+      <GlobalSearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
     </>
   );
 };

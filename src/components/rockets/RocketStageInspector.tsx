@@ -3,6 +3,7 @@ import { RocketData, RocketStage } from '../../types';
 import { Badge } from '../common/Badge';
 import { Gauge, Flame, Clock, Layers, ShieldCheck } from 'lucide-react';
 import { formatNumber } from '../../utils/formatting';
+import { GlossaryTooltip } from '../common/GlossaryTooltip';
 
 interface RocketStageInspectorProps {
   rocket: RocketData;
@@ -13,27 +14,32 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
   const activeStage = rocket.stages[selectedStageIdx] || rocket.stages[0];
 
   return (
-    <div className="rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 shadow-xl">
+    <div className="hud-card rounded-2xl bg-space-900 border border-slate-800 p-6 sm:p-8 shadow-xl relative">
+      <div className="hud-corner-tl" />
+      <div className="hud-corner-br" />
+
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div>
-          <span className="text-xs uppercase font-mono text-gold-400 tracking-wider flex items-center gap-1.5 mb-1">
+          <span className="text-xs uppercase font-mono text-cyan-400 tracking-wider flex items-center gap-1.5 mb-1">
             <Layers className="w-4 h-4" /> Multistage Propulsion Anatomy
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-100 font-mono">
+          <h3 className="text-xl sm:text-2xl font-bold text-white font-outfit">
             {rocket.name} Stage Architecture
           </h3>
         </div>
 
         {/* Stage Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-space-950 rounded-xl border border-slate-800">
+        <div className="flex items-center gap-1.5 p-1 bg-space-950 rounded-xl border border-slate-800" role="tablist">
           {rocket.stages.map((stage, idx) => (
             <button
               key={stage.stageNumber}
+              role="tab"
+              aria-selected={selectedStageIdx === idx}
               onClick={() => setSelectedStageIdx(idx)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
                 selectedStageIdx === idx
-                  ? 'bg-gold-500 text-space-950 font-bold shadow-md'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-space-850'
+                  ? 'bg-cyan-400 text-space-950 font-bold shadow-md'
+                  : 'text-slate-400 hover:text-white hover:bg-space-850'
               }`}
             >
               Stage {stage.stageNumber}
@@ -47,22 +53,22 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
         {/* Visual Rocket Schematic (Interactive SVG) */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 bg-space-950 rounded-2xl border border-slate-800/80 relative">
           <div className="text-center mb-3">
-            <span className="text-[11px] font-mono text-slate-500 uppercase">
+            <span className="text-[11px] font-mono text-slate-400 uppercase">
               Vehicle Height: {rocket.heightMeters} m • Diameter: {rocket.diameterMeters} m
             </span>
           </div>
 
-          <svg viewBox="0 0 160 480" className="w-36 sm:w-44 h-80 sm:h-96">
+          <svg viewBox="0 0 160 480" className="w-36 sm:w-44 h-80 sm:h-96" aria-label="Rocket Stage Diagram">
             <defs>
               <linearGradient id="rocketGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#475569" />
-                <stop offset="50%" stopColor="#94A3B8" />
-                <stop offset="100%" stopColor="#334155" />
+                <stop offset="0%" stopColor="#334155" />
+                <stop offset="50%" stopColor="#64748B" />
+                <stop offset="100%" stopColor="#1E293B" />
               </linearGradient>
               <linearGradient id="activeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#D97706" />
-                <stop offset="50%" stopColor="#F59E0B" />
-                <stop offset="100%" stopColor="#B45309" />
+                <stop offset="0%" stopColor="#0891b2" />
+                <stop offset="50%" stopColor="#00f2ff" />
+                <stop offset="100%" stopColor="#0e7490" />
               </linearGradient>
             </defs>
 
@@ -75,7 +81,7 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
               className="cursor-pointer transition-colors"
               onClick={() => setSelectedStageIdx(Math.min(1, rocket.stages.length - 1))}
             />
-            <text x="80" y="70" textAnchor="middle" fill="#0F172A" fontSize="9" fontWeight="bold">FAIRING</text>
+            <text x="80" y="70" textAnchor="middle" fill="#030712" fontSize="9" fontWeight="bold">FAIRING</text>
 
             {/* Upper Stage (Stage 2) */}
             <rect
@@ -108,7 +114,7 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
               className="cursor-pointer transition-colors"
               onClick={() => setSelectedStageIdx(0)}
             />
-            <text x="80" y="300" textAnchor="middle" fill="#0F172A" fontSize="10" fontWeight="bold" fontFamily="monospace">STAGE 1</text>
+            <text x="80" y="300" textAnchor="middle" fill="#030712" fontSize="10" fontWeight="bold" fontFamily="monospace">STAGE 1</text>
 
             {/* Engine Nozzles at Bottom */}
             <path d="M 60 405 L 56 425 L 72 425 L 68 405 Z" fill="#334155" />
@@ -117,7 +123,7 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
 
             {/* Exhaust plume when active */}
             {selectedStageIdx === 0 && (
-              <polygon points="65,427 80,470 95,427" fill="#F59E0B" opacity="0.8" />
+              <polygon points="65,427 80,470 95,427" fill="#00f2ff" opacity="0.8" />
             )}
           </svg>
 
@@ -129,8 +135,8 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
         {/* Selected Stage Detail Panel */}
         <div className="lg:col-span-7 space-y-6">
           <div className="flex items-center justify-between gap-2">
-            <h4 className="text-xl font-bold text-slate-100 font-mono flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-gold-400" />
+            <h4 className="text-xl font-bold text-white font-outfit flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-cyan-400" />
               {activeStage.name}
             </h4>
             <Badge variant={activeStage.reusable ? 'green' : 'neutral'} size="sm">
@@ -138,52 +144,52 @@ export const RocketStageInspector: React.FC<RocketStageInspectorProps> = ({ rock
             </Badge>
           </div>
 
-          <p className="text-sm text-slate-300 leading-relaxed">
+          <p className="text-sm text-slate-300 leading-relaxed font-sans">
             {activeStage.purpose}
           </p>
 
           {/* Key Specifications Grid */}
           <div className="grid grid-cols-2 gap-3 font-mono text-xs">
             <div className="p-3.5 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
                 <Flame className="w-3.5 h-3.5 text-amber-400" /> Propulsion Engines
               </span>
-              <span className="text-slate-200 font-semibold block mt-1">
+              <span className="text-white font-semibold block mt-1">
                 {activeStage.engines}
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
-                <Gauge className="w-3.5 h-3.5 text-gold-400" /> Thrust Output
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
+                <Gauge className="w-3.5 h-3.5 text-cyan-400" /> Thrust Output
               </span>
-              <span className="text-slate-200 font-semibold block mt-1">
+              <span className="text-white font-semibold block mt-1">
                 {formatNumber(activeStage.thrustKn)} kN ({((activeStage.thrustKn / 9.80665) / 1000).toFixed(0)} metric tons)
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
                 <Layers className="w-3.5 h-3.5 text-cyan-400" /> Propellant Mix
               </span>
-              <span className="text-slate-200 font-semibold block mt-1">
+              <span className="text-white font-semibold block mt-1">
                 {activeStage.propellant}
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-purple-400" /> Nominal Burn Time
               </span>
-              <span className="text-slate-200 font-semibold block mt-1">
+              <span className="text-white font-semibold block mt-1">
                 {activeStage.burnTimeSeconds} seconds (~{(activeStage.burnTimeSeconds / 60).toFixed(1)} min)
               </span>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-space-950/70 border border-slate-800 text-xs font-mono text-slate-400">
-            <span className="text-gold-400 font-semibold block mb-0.5">Tsiolkovsky Rocket Equation Context:</span>
-            Δv = I_sp · g_0 · ln(m_initial / m_final). Each consecutive stage discards dead dry structure mass, multiplying the final burnout velocity necessary to achieve stable orbit.
+          <div className="p-4 rounded-xl bg-space-950/70 border border-slate-800 text-xs font-mono text-slate-300">
+            <span className="text-cyan-400 font-semibold block mb-0.5">Tsiolkovsky Rocket Equation Context:</span>
+            Δv = <GlossaryTooltip term="Specific Impulse">I_sp</GlossaryTooltip> · g_0 · ln(m_initial / m_final). Each consecutive stage discards dead dry structure mass, multiplying the final burnout velocity necessary to achieve stable orbit.
           </div>
         </div>
 

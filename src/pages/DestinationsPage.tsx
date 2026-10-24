@@ -5,6 +5,7 @@ import { DestinationData } from '../types';
 import { DestinationCard } from '../components/destinations/DestinationCard';
 import { Badge } from '../components/common/Badge';
 import { Compass, Thermometer, Weight, Radio, HelpCircle, ShieldCheck, ExternalLink, Globe } from 'lucide-react';
+import { GlossaryTooltip } from '../components/common/GlossaryTooltip';
 
 export const DestinationsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,16 +29,17 @@ export const DestinationsPage: React.FC = () => {
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
       
       {/* Header */}
-      <div>
-        <div className="flex items-center gap-2 mb-1.5">
+      <div className="border-b border-slate-800 pb-6">
+        <div className="flex items-center gap-2 mb-2">
           <Badge variant="cyan">Astrobiology & Planetary Geology</Badge>
-          <Badge variant="gold">Target Worlds</Badge>
+          <Badge variant="neutral">Prime Exploration Targets</Badge>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-100 font-mono tracking-tight">
-          Destinations Explorer
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-3">
+          <Compass className="w-8 h-8 text-cyan-400" />
+          Planetary Destinations & Moons
         </h1>
-        <p className="text-slate-400 text-sm mt-1 max-w-2xl">
-          Deep-dive monographs on prime celestial exploration targets: from lunar ice traps and Martian riverbeds to outer ocean worlds and temperate exoplanets.
+        <p className="text-slate-400 text-sm mt-1 max-w-3xl font-sans leading-relaxed">
+          Deep-dive monographs on prime celestial exploration targets: from lunar permanently shadowed polar craters and Martian ancient river deltas to subsurface ocean worlds (Europa, Enceladus) and methane lakes on Titan.
         </p>
       </div>
 
@@ -54,8 +56,10 @@ export const DestinationsPage: React.FC = () => {
       </div>
 
       {/* Selected Destination In-Depth Profile */}
-      <div className="rounded-3xl bg-space-900 border border-slate-800 overflow-hidden shadow-2xl">
-        
+      <div className="hud-card rounded-3xl bg-space-900 border border-slate-800 overflow-hidden shadow-2xl relative">
+        <div className="hud-corner-tl" />
+        <div className="hud-corner-br" />
+
         {/* Banner with Hero Image */}
         <div className="relative h-72 sm:h-96 w-full bg-space-950">
           <img
@@ -70,7 +74,7 @@ export const DestinationsPage: React.FC = () => {
               <Badge variant="cyan">{activeDestination.category}</Badge>
               <Badge variant="neutral">Parent Body: {activeDestination.parentBodyOrStar}</Badge>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-100 font-mono tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-outfit tracking-tight">
               {activeDestination.name}
             </h2>
           </div>
@@ -82,132 +86,81 @@ export const DestinationsPage: React.FC = () => {
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono text-xs">
             <div className="p-4 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] block">Distance From Earth</span>
-              <span className="text-slate-200 font-bold text-sm sm:text-base mt-1 block">
+              <span className="text-slate-400 uppercase text-[10px] block">Distance From Earth</span>
+              <span className="text-white font-bold text-sm sm:text-base mt-1 block font-outfit">
                 {activeDestination.distanceFromEarth}
               </span>
             </div>
 
             <div className="p-4 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
                 <Weight className="w-3.5 h-3.5 text-emerald-400" /> Surface Gravity
               </span>
-              <span className="text-slate-200 font-bold text-sm sm:text-base mt-1 block">
+              <span className="text-white font-bold text-sm sm:text-base mt-1 block font-outfit">
                 {activeDestination.surfaceGravity}
               </span>
             </div>
 
             <div className="p-4 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] flex items-center gap-1">
-                <Thermometer className="w-3.5 h-3.5 text-amber-400" /> Thermal Range
+              <span className="text-slate-400 uppercase text-[10px] flex items-center gap-1">
+                <Thermometer className="w-3.5 h-3.5 text-amber-400" /> Temperature
               </span>
-              <span className="text-slate-200 font-bold text-sm sm:text-base mt-1 block">
+              <span className="text-white font-bold text-sm sm:text-base mt-1 block font-outfit">
                 {activeDestination.surfaceTempRange}
               </span>
             </div>
 
             <div className="p-4 rounded-xl bg-space-950 border border-slate-800">
-              <span className="text-slate-500 uppercase text-[10px] block">Atmospheric Pressure</span>
-              <span className="text-slate-200 font-bold text-sm sm:text-base mt-1 block">
+              <span className="text-slate-400 uppercase text-[10px] block">Atmospheric Pressure</span>
+              <span className="text-cyan-300 font-bold text-sm sm:text-base mt-1 block truncate font-outfit">
                 {activeDestination.atmosphericPressure}
               </span>
             </div>
           </div>
 
-          {/* Overview & Astrobiology Assessment */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-7 space-y-4">
-              <h3 className="text-lg font-bold text-slate-100 font-mono uppercase tracking-wider text-gold-400">
-                Scientific Overview
-              </h3>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                {activeDestination.overview}
-              </p>
-
-              <h3 className="text-lg font-bold text-slate-100 font-mono uppercase tracking-wider text-gold-400 pt-4">
-                Surface & Geology
-              </h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {activeDestination.surfaceAndGeology}
-              </p>
-
-              <h3 className="text-lg font-bold text-slate-100 font-mono uppercase tracking-wider text-gold-400 pt-4">
-                Atmosphere & Volatiles
-              </h3>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {activeDestination.atmosphericDetails}
-              </p>
-            </div>
-
-            <div className="lg:col-span-5 space-y-6">
-              
-              {/* Habitability Assessment Card */}
-              <div className="p-5 rounded-2xl bg-space-950 border border-gold-500/30 space-y-2">
-                <span className="text-xs uppercase font-mono text-gold-400 font-bold flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4" /> Astrobiological Assessment
-                </span>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  {activeDestination.habitabilityIndexNotes}
-                </p>
-              </div>
-
-              {/* Exploration History */}
-              <div className="p-5 rounded-2xl bg-space-950 border border-slate-800 space-y-2">
-                <span className="text-xs uppercase font-mono text-cyan-400 font-bold flex items-center gap-1.5">
-                  <Radio className="w-4 h-4" /> Exploration Record
-                </span>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  {activeDestination.explorationHistory}
-                </p>
-              </div>
-
-              {/* Active & Planned Missions */}
-              <div className="p-5 rounded-2xl bg-space-950 border border-slate-800 space-y-3">
-                <span className="text-xs uppercase font-mono text-slate-400 font-bold">
-                  Active & Scheduled Missions
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {activeDestination.activeMissions.map((mis, i) => (
-                    <Badge key={i} variant="neutral" size="sm">{mis}</Badge>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          {/* Open Scientific Questions */}
-          <div className="rounded-2xl bg-space-950 border border-slate-800 p-6 sm:p-8 space-y-4">
-            <h3 className="text-lg font-bold text-slate-100 font-mono flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-gold-400" />
-              Open Scientific Questions & Research Frontiers
+          {/* Overview Narrative */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold text-white font-outfit flex items-center gap-2">
+              <Compass className="w-4 h-4 text-cyan-400" />
+              Planetary Characteristics & Geology
             </h3>
-            <ul className="space-y-3">
-              {activeDestination.openQuestions.map((q, i) => (
-                <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300">
-                  <span className="w-2 h-2 rounded-full bg-gold-400 mt-2 flex-shrink-0" />
-                  <span className="leading-relaxed">{q}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
+              {activeDestination.overview}
+            </p>
           </div>
 
-          {/* Source Citation */}
-          <div className="p-4 rounded-xl bg-space-950 border border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Verified Source: {activeDestination.officialReference}</span>
+          {/* Key Exploration Questions */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold text-white font-outfit flex items-center gap-2">
+              <Globe className="w-4 h-4 text-cyan-400" />
+              Primary Scientific Enquiries & Research Frontiers
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {activeDestination.openQuestions.map((question: string, idx: number) => (
+                <div key={idx} className="p-4 rounded-xl bg-space-950 border border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" />
+                  <span>{question}</span>
+                </div>
+              ))}
             </div>
-            <a
-              href={activeDestination.sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-gold-400 hover:underline"
-            >
-              <span>NASA Portal</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
+
+          {/* Active Missions */}
+          {activeDestination.activeMissions.length > 0 && (
+            <div className="space-y-3 pt-2 border-t border-slate-800/80">
+              <h3 className="text-lg font-bold text-white font-outfit flex items-center gap-2">
+                <Radio className="w-4 h-4 text-cyan-400" />
+                Associated Space Missions & Probes
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {activeDestination.activeMissions.map((m, idx) => (
+                  <span key={idx} className="px-3.5 py-2 rounded-xl bg-space-950 border border-slate-800 text-xs font-mono text-slate-200">
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
       </div>

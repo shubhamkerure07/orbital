@@ -62,22 +62,21 @@ export const NeoObservatoryPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-holo-cyan animate-pulse" />
             <Badge variant="cyan">NASA CNEOS / JPL SENTRY EQUIVALENT</Badge>
-            <Badge variant="gold">RADAR TELEMETRY</Badge>
+            <Badge variant="neutral">RADAR TELEMETRY</Badge>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-outfit tracking-tight flex items-center gap-3">
-            <Crosshair className="w-8 h-8 text-holo-cyan" />
+            <Crosshair className="w-8 h-8 text-cyan-400" />
             Asteroid & Near-Earth Object Observatory
           </h1>
-          <p className="text-slate-400 text-sm mt-1 max-w-3xl">
+          <p className="text-slate-400 text-sm mt-1 max-w-3xl font-sans leading-relaxed">
             Real-time planetary defense monitoring, close-approach trajectory analysis, and orbital tracking of Near-Earth Asteroids (NEAs) and Potentially Hazardous Asteroids (PHAs).
           </p>
         </div>
 
         {/* Global Planetary Defense Status */}
-        <div className="hud-card p-3 rounded-lg border border-holo-cyan/30 flex items-center gap-4 bg-space-900/80">
-          <div className="w-10 h-10 rounded-full bg-holo-cyan/10 border border-holo-cyan/40 flex items-center justify-center text-holo-cyan">
+        <div className="hud-card p-3 rounded-xl border border-cyan-400/30 flex items-center gap-4 bg-space-900/80">
+          <div className="w-10 h-10 rounded-xl bg-cyan-400/10 border border-cyan-400/40 flex items-center justify-center text-cyan-400">
             <ShieldAlert className="w-5 h-5 animate-pulse" />
           </div>
           <div>
@@ -95,15 +94,15 @@ export const NeoObservatoryPage: React.FC = () => {
           value="34,850+"
           unit="objects"
           subtext="Updated Daily by JPL"
-          accentColor="border-holo-cyan/40"
-          icon={<Orbit className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/30"
+          icon={<Orbit className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="Potentially Hazardous (PHAs)"
           value="2,410"
           unit="diameter > 140m"
           subtext="MOID < 0.05 AU"
-          accentColor="border-amber-400/40"
+          accentColor="border-amber-400/30"
           icon={<AlertTriangle className="w-4 h-4 text-amber-400" />}
         />
         <MetricCard
@@ -111,15 +110,15 @@ export const NeoObservatoryPage: React.FC = () => {
           value="31,600"
           unit="km (Apophis 2029)"
           subtext="Inside GEO Satellite Ring"
-          accentColor="border-holo-cyan/40"
-          icon={<Compass className="w-4 h-4 text-holo-cyan" />}
+          accentColor="border-cyan-400/30"
+          icon={<Compass className="w-4 h-4 text-cyan-400" />}
         />
         <MetricCard
           label="Active Planetary Defense"
           value="DART Verified"
           unit="Kinetic Deflection"
           subtext="-33 min orbital shift"
-          accentColor="border-emerald-400/40"
+          accentColor="border-emerald-400/30"
           icon={<Zap className="w-4 h-4 text-emerald-400" />}
         />
       </div>
@@ -134,7 +133,7 @@ export const NeoObservatoryPage: React.FC = () => {
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
                 Observatory Telemetry Target List
               </span>
-              <span className="text-[11px] font-mono text-holo-cyan">
+              <span className="text-[11px] font-mono text-cyan-400">
                 {filteredAsteroids.length} Target(s)
               </span>
             </div>
@@ -147,7 +146,7 @@ export const NeoObservatoryPage: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search asteroid by name (e.g. Apophis, Bennu)..."
-                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-holo-cyan focus:outline-none text-xs font-mono text-slate-200"
+                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-space-950 border border-slate-800 focus:border-cyan-400 focus:outline-none text-xs font-mono text-slate-200"
               />
             </div>
 
@@ -158,7 +157,7 @@ export const NeoObservatoryPage: React.FC = () => {
                   type="checkbox"
                   checked={filterHazardousOnly}
                   onChange={(e) => setFilterHazardousOnly(e.target.checked)}
-                  className="rounded bg-space-950 border-slate-700 text-holo-cyan focus:ring-holo-cyan"
+                  className="rounded bg-space-950 border-slate-700 text-cyan-400 focus:ring-cyan-400"
                 />
                 Show Hazardous (PHA) Only
               </label>
@@ -179,7 +178,7 @@ export const NeoObservatoryPage: React.FC = () => {
                   onClick={() => setSelectedAsteroid(ast)}
                   className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-holo-cyan/10 border-holo-cyan shadow-[0_0_15px_rgba(0,242,255,0.2)]'
+                      ? 'bg-cyan-400/10 border-cyan-400 shadow-[0_0_15px_rgba(0,242,255,0.2)]'
                       : 'bg-space-900/50 border-slate-800/80 hover:border-slate-700 hover:bg-space-900'
                   }`}
                 >
@@ -210,7 +209,7 @@ export const NeoObservatoryPage: React.FC = () => {
                     </div>
                     <div>
                       <div className="text-slate-400 text-[9px] uppercase">Miss Dist.</div>
-                      <div className="text-holo-cyan font-bold">{closeApp ? `${closeApp.missDistanceLd} LD` : 'N/A'}</div>
+                      <div className="text-cyan-400 font-bold">{closeApp ? `${closeApp.missDistanceLd} LD` : 'N/A'}</div>
                     </div>
                     <div>
                       <div className="text-slate-400 text-[9px] uppercase">Torino</div>
@@ -229,7 +228,7 @@ export const NeoObservatoryPage: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           
           {/* Main Inspection HUD Card */}
-          <div className="hud-card p-6 rounded-2xl border border-holo-cyan/40 bg-space-900/90 relative overflow-hidden">
+          <div className="hud-card p-6 rounded-2xl border border-cyan-400/40 bg-space-900/90 relative overflow-hidden">
             <div className="hud-corner-tl" />
             <div className="hud-corner-tr" />
             <div className="hud-corner-bl" />
@@ -238,7 +237,7 @@ export const NeoObservatoryPage: React.FC = () => {
             {/* Target Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
               <div>
-                <div className="text-[10px] font-mono tracking-widest text-holo-cyan uppercase flex items-center gap-1.5">
+                <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase flex items-center gap-1.5">
                   <Crosshair className="w-3.5 h-3.5" />
                   RADAR TELEMETRY TARGET PROFILE: {selectedAsteroid.designation}
                 </div>
@@ -246,14 +245,14 @@ export const NeoObservatoryPage: React.FC = () => {
                   {selectedAsteroid.name}
                 </h2>
                 <div className="text-xs font-mono text-slate-400 mt-0.5">
-                  Spectral Type: <span className="text-holo-cyan font-bold">{selectedAsteroid.spectralType}</span> | Orbital Group: <span className="text-slate-200">{selectedAsteroid.classification}</span>
+                  Spectral Type: <span className="text-cyan-400 font-bold">{selectedAsteroid.spectralType}</span> | Orbital Group: <span className="text-slate-200">{selectedAsteroid.classification}</span>
                 </div>
               </div>
 
               <div className="flex flex-row sm:flex-col items-end gap-1.5">
-                <div className="px-2.5 py-1 rounded bg-space-950 border border-holo-cyan/50 text-right">
+                <div className="px-2.5 py-1 rounded bg-space-950 border border-cyan-400/50 text-right">
                   <div className="text-[9px] font-mono text-slate-400 uppercase">Mean Diameter</div>
-                  <div className="text-xs font-mono font-bold text-holo-cyan">~{meanDiameter} meters</div>
+                  <div className="text-xs font-mono font-bold text-cyan-400">~{meanDiameter} meters</div>
                 </div>
               </div>
             </div>
@@ -266,7 +265,7 @@ export const NeoObservatoryPage: React.FC = () => {
               </div>
               <div>
                 <div className="text-[10px] font-mono text-slate-400 uppercase">Miss Distance</div>
-                <div className="text-xs font-mono font-bold text-holo-cyan mt-0.5">
+                <div className="text-xs font-mono font-bold text-cyan-400 mt-0.5">
                   {nextApproach ? `${nextApproach.missDistanceLd} LD` : 'Stable Orbit'}
                 </div>
                 <div className="text-[9px] font-mono text-slate-400">
@@ -292,7 +291,7 @@ export const NeoObservatoryPage: React.FC = () => {
               <div className="space-y-2 mb-5 p-4 rounded-xl bg-space-950/60 border border-slate-800/80">
                 <div className="flex items-center justify-between text-xs font-mono">
                   <span className="text-slate-300">Miss Distance Proximity Gauge:</span>
-                  <span className="text-holo-cyan font-bold">
+                  <span className="text-cyan-400 font-bold">
                     {nextApproach.missDistanceLd < 1 
                       ? `INSIDE LUNAR ORBIT (${(nextApproach.missDistanceLd * 100).toFixed(1)}% lunar dist)`
                       : `${nextApproach.missDistanceLd} Lunar Distances`}
@@ -319,9 +318,9 @@ export const NeoObservatoryPage: React.FC = () => {
                         className="absolute flex items-center gap-1 transform -translate-x-1/2 transition-all duration-700 z-20"
                         style={{ left: `${percent}%` }}
                       >
-                        <div className="w-3 h-3 rounded-full bg-holo-cyan border border-white animate-ping absolute" />
-                        <div className="w-3 h-3 rounded-full bg-holo-cyan border border-white relative" />
-                        <span className="text-[9px] font-mono font-bold text-holo-cyan whitespace-nowrap hidden sm:inline">
+                        <div className="w-3 h-3 rounded-full bg-cyan-400 border border-white animate-ping absolute" />
+                        <div className="w-3 h-3 rounded-full bg-cyan-400 border border-white relative" />
+                        <span className="text-[9px] font-mono font-bold text-cyan-400 whitespace-nowrap hidden sm:inline">
                           {selectedAsteroid.name}
                         </span>
                       </div>
@@ -340,7 +339,7 @@ export const NeoObservatoryPage: React.FC = () => {
             {/* Scientific Overview & Historical Mission Context */}
             <div className="space-y-3">
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                <Info className="w-3.5 h-3.5 text-holo-cyan" />
+                <Info className="w-3.5 h-3.5 text-cyan-400" />
                 Scientific Assessment & Physical Overview
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
@@ -349,11 +348,11 @@ export const NeoObservatoryPage: React.FC = () => {
 
               {/* Related Spacecraft Exploration */}
               {selectedAsteroid.associatedMissions && selectedAsteroid.associatedMissions.length > 0 && (
-                <div className="p-3 rounded-lg bg-holo-cyan/5 border border-holo-cyan/30 flex items-center gap-3">
-                  <Zap className="w-4 h-4 text-holo-cyan flex-shrink-0" />
+                <div className="p-3 rounded-lg bg-cyan-400/5 border border-cyan-400/30 flex items-center gap-3">
+                  <Zap className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                   <div className="text-xs font-mono">
                     <span className="text-slate-400">Target of In-Situ Robotic Exploration: </span>
-                    <span className="text-holo-cyan font-bold">{selectedAsteroid.associatedMissions.join('; ')}</span>
+                    <span className="text-cyan-400 font-bold">{selectedAsteroid.associatedMissions.join('; ')}</span>
                   </div>
                 </div>
               )}
@@ -395,7 +394,7 @@ export const NeoObservatoryPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono">
               {TORINO_SCALE_DEFINITIONS.map((scale: TorinoScaleDef) => (
                 <div key={scale.level} className="p-2 rounded bg-space-950 border border-slate-800 flex items-start gap-2">
-                  <span className="w-4 h-4 rounded text-center text-[10px] font-bold bg-slate-800 text-holo-cyan shrink-0">
+                  <span className="w-4 h-4 rounded text-center text-[10px] font-bold bg-slate-800 text-cyan-400 shrink-0">
                     {scale.level}
                   </span>
                   <div>
